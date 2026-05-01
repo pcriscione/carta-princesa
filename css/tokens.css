@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300;1,500&family=Bebas+Neue&family=DM+Sans:wght@300;400&display=swap');
+
+:root {
+  /* Colores */
+  --ink:        #0C0A06;
+  --paper:      #F0E8D8;
+  --gold:       #C8962A;
+  --gold-dim:   #5A3E0E;
+  --card-bg:    #181008;
+  --border:     #2A1A06;
+  --shadow:     rgba(0,0,0,0.75);
+
+  /* Tipografía */
+  --font-title: 'Cormorant Garamond', serif;
+  --font-price: 'Bebas Neue', sans-serif;
+  --font-body:  'DM Sans', sans-serif;
+
+  /* Layout */
+  --max-w:      430px;
+  --pad:        14px;
+  --gap:        12px;
+  --radius-sm:  18px;
+  --radius-lg:  24px;
+
+  /* Rotaciones para small_card y masonry_image */
+  --rot-1: -2.5deg;
+  --rot-2: -1.5deg;
+  --rot-3:  1deg;
+  --rot-4:  2deg;
+  --rot-5: -1deg;
+  --rot-6:  2.5deg;
+}
+
+/* Reset base */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: #100C06;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+  color: var(--paper);
+  font-family: var(--font-body);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+img, video {
+  display: block;
+  max-width: 100%;
+}

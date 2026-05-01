@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Card Plato — La Princesa</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300;1,500&family=Bebas+Neue&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet">
+<style>
+
+/* ── TOKENS ── */
+:root {
+  --ink:       #0C0A06;
+  --paper:     #F0E8D8;
+  --gold:      #C8962A;
+  --gold-dim:  #5A3E0E;
+  --card-bg:   #181008;
+  --shadow:    rgba(0,0,0,0.75);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+
+body {
+  background: #100C06;
+  min-height: 100vh;
+  padding: 3rem 1.5rem 4rem;
+  font-family: 'DM Sans', sans-serif;
+  /* Grain */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+}
+
+/* ── STAGE: muestra las 3 variantes de tamaño juntas ── */
+.stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+/* ── CARD BASE ── */
+/*
+  INSTRUCCIONES PARA CLAUDE CODE:
+  - Cada card recibe un --rot (ej: -3deg, 2deg, -1.5deg) aleatorio o predefinido
+  - El tamaño (--h) cambia por variante: sm=160px, md=220px, lg=280px
+  - La grilla scatter las posiciona con margin negativo o translate para el desorden
+*/
+.card {
+  position: relative;
+  width: 100%;
+  max-width: 300px;
+  background: var(--card-bg);
+  border: 1px solid #2A1A06;
+  overflow: hidden;
+  cursor: pointer;
+
+  --rot: 0deg;
+  transform: rotate(var(--rot));
+  transform-origin: center center;
+
+  transition:
+    transform 0.4s cubic-bezier(0.34,1.56,0.64,1),
+    box-shadow 0.3s ease;
+
+  box-shadow:
+    0 10px 30px var(--shadow),
+    0 2px 6px rgba(0,0,0,0.6);
+
+  /* Touch: active state en lugar de hover */
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* Active touch: endereza y eleva */
+.card:active,
+.card.touched {
+  transform: rotate(0deg) translateY(-6px) scale(1.02);
+  box-shadow:
+    0 28px 70px rgba(0,0,0,0.85),
+    0 0 0 1.5px var(--gold-dim);
+  z-index: 20;
+}
+
+/* ── IMAGEN ── */
+.card__img {
+  position: relative;
+  overflow: hidden;
+  height: var(--h, 200px);
+}
+
+.card__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: sepia(20%) contrast(1.06) brightness(0.88);
+  transition: transform 0.5s ease;
+}
+
+.card:active .card__img img,
+.card.touched .card__img img {
+  transform: scale(1.06);
+}
+
+/* Viñeta */
+.card__img::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(12,10,6,0.0) 35%,
+    rgba(12,10,6,0.82) 100%
+  );
+  pointer-events: none;
+}
+
+/* ── BADGE ── */
+.card__badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 3;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.5rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.5rem;
+  border-radius: 1px;
+}
+
+.card__badge--gold {
+  background: var(--gold);
+  color: var(--ink);
+}
+
+.card__badge--outline {
+  background: transparent;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+}
+
+/* ── INDICADOR VIDEO ── */
+.card__video {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  z-index: 3;
+  width: 28px;
+  height: 28px;
+  border: 1.5px solid rgba(200,150,42,0.6);
+  border-radius: 50%;
+  background: rgba(12,10,6,0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card__video::after {
+  content: '';
+  width: 0; height: 0;
+  border-style: solid;
+  border-width: 5px 0 5px 9px;
+  border-color: transparent transparent transparent var(--gold);
+  margin-left: 2px;
+}
+
+/* ── TEXTO SOBRE IMAGEN (nombre + precio) ── */
+.card__over {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 0.7rem 0.9rem;
+  z-index: 3;
+}
+
+.card__name {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-weight: 300;
+  font-size: 1.15rem;
+  color: var(--paper);
+  line-height: 1.15;
+  margin-bottom: 0.15rem;
+}
+
+.card__price {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1rem;
+  color: var(--gold);
+  letter-spacing: 0.06em;
+}
+
+/* ── CUERPO INFERIOR (descripción, solo en variante lg) ── */
+.card__body {
+  padding: 0.75rem 0.9rem 0.9rem;
+  border-top: 1px solid #2A1A06;
+}
+
+.card__desc {
+  font-size: 0.7rem;
+  font-weight: 300;
+  color: rgba(240,232,216,0.5);
+  line-height: 1.6;
+}
+
+/* ── VARIANTES DE TAMAÑO ── */
+.card--sm { --h: 155px; }
+.card--md { --h: 210px; }
+.card--lg { --h: 260px; }
+
+/* ── ROTACIONES PREDEFINIDAS (Claude Code asigna una por card) ── */
+.rot-neg3  { --rot: -3deg; }
+.rot-neg2  { --rot: -2deg; }
+.rot-neg15 { --rot: -1.5deg; }
+.rot-pos1  { --rot: 1deg; }
+.rot-pos2  { --rot: 2deg; }
+.rot-pos25 { --rot: 2.5deg; }
+
+/* ── ETIQUETA DE CATEGORÍA (esquina sup izq) ── */
+.card__cat {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 3;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.45rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(200,150,42,0.7);
+}
+
+/* ── LABEL DE INSTRUCCIONES (solo para este demo, eliminar en prod) ── */
+.demo-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.6rem;
+  color: rgba(200,150,42,0.3);
+  text-align: center;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
+}
+
+</style>
+</head>
+<body>
+
+<div class="stage">
+
+  <!-- VARIANTE SM — card chica, mínima, solo imagen + precio -->
+  <div>
+    <div class="demo-label">Variante SM · --rot: -3deg</div>
+    <div class="card card--sm rot-neg3">
+      <div class="card__img">
+        <img src="https://images.unsplash.com/photo-1562967914-608f82629710?w=400&q=85" alt="Chicken Fingers">
+        <div class="card__badge card__badge--gold">Popular</div>
+      </div>
+      <div class="card__over">
+        <div class="card__name">Chicken Fingers</div>
+        <div class="card__price">$8.900</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VARIANTE MD — con categoría y badge outline -->
+  <div>
+    <div class="demo-label">Variante MD · --rot: 2deg</div>
+    <div class="card card--md rot-pos2">
+      <div class="card__img">
+        <img src="https://images.unsplash.com/photo-1535400255456-984e0a4bad35?w=400&q=85" alt="Ceviche">
+        <div class="card__cat">Entrada</div>
+        <div class="card__badge card__badge--outline">Signature</div>
+        <div class="card__video"></div>
+      </div>
+      <div class="card__over">
+        <div class="card__name">Ceviche Clásico</div>
+        <div class="card__price">$15.900</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VARIANTE LG — con descripción abajo -->
+  <div>
+    <div class="demo-label">Variante LG · --rot: -1.5deg</div>
+    <div class="card card--lg rot-neg15">
+      <div class="card__img">
+        <img src="https://images.unsplash.com/photo-1432139555190-58524dae6a55?w=600&q=85" alt="Lomo Saltado">
+        <div class="card__cat">Fondo</div>
+        <div class="card__badge card__badge--gold">Top 1</div>
+        <div class="card__video"></div>
+      </div>
+      <div class="card__over">
+        <div class="card__name">Lomo Saltado</div>
+        <div class="card__price">$19.900</div>
+      </div>
+      <div class="card__body">
+        <div class="card__desc">Lomo fino al wok con cebolla, tomate y ají amarillo. Arroz blanco y papas fritas.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+/* Touch feedback para móvil */
+document.querySelectorAll('.card').forEach(card => {
+  card.addEventListener('touchstart', () => {
+    card.classList.add('touched');
+  }, { passive: true });
+  card.addEventListener('touchend', () => {
+    setTimeout(() => card.classList.remove('touched'), 400);
+  }, { passive: true });
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#100C06">
+  <meta name="description" content="La Princesa — Carta de cocina peruana en Chicureo">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <title>La Princesa — Carta</title>
+
+  <!-- Favicon inline SVG -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23100C06'/><text x='16' y='22' font-size='18' text-anchor='middle' fill='%23C8962A'>P</text></svg>">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/blocks.css">
+  <link rel="stylesheet" href="css/modal.css">
+</head>
+<body>
+
+  <!-- NAVEGACIÓN -->
+  <nav class="nav-bar" aria-label="Secciones del menú">
+    <div class="nav-tabs" id="nav-tabs" role="tablist"></div>
+  </nav>
+
+  <!-- CARTA -->
+  <main class="menu-container">
+    <div id="carta" role="region" aria-label="Carta"></div>
+  </main>
+
+  <!-- JS: orden de carga estricto (globals antes de consumers) -->
+
+  <!-- Supabase SDK via CDN (solo se usa si no es mock) -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+
+  <!-- Config + credenciales (placeholders para Cloudflare Pages) -->
+  <script src="js/config.js"></script>
+
+  <!-- Mock data (se usa si USE_MOCK === true) -->
+  <script src="js/mock.js"></script>
+
+  <!-- Helpers globales (formatPrecio, imagenOPlaceholder, escHtml) -->
+  <script src="js/utils.js"></script>
+
+  <!-- Supabase client + cache + cargarCarta() -->
+  <script src="js/supabase.js"></script>
+
+  <!-- Bloques individuales -->
+  <script src="js/blocks/small_card.js"></script>
+  <script src="js/blocks/large_card.js"></script>
+  <script src="js/blocks/horizontal_banner.js"></script>
+  <script src="js/blocks/hero_video.js"></script>
+  <script src="js/blocks/recommended_card.js"></script>
+  <script src="js/blocks/masonry_image.js"></script>
+  <script src="js/blocks/featured_pair.js"></script>
+
+  <!-- Router de blocks + renderCarta() + renderSkeletons() -->
+  <script src="js/render.js"></script>
+
+  <!-- Navegación por sección -->
+  <script src="js/nav.js"></script>
+
+  <!-- Modal de detalle -->
+  <script src="js/modal.js"></script>
+
+  <!-- Orquestador: arranca la app al DOMContentLoaded -->
+  <script src="js/app.js"></script>
+
+</body>
+</html>
