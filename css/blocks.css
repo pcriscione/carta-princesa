@@ -124,6 +124,7 @@
 
 .block-small-card {
   height: 180px;
+  border-color: var(--gold-dim);
 }
 
 .block-small-card img {
