@@ -131,6 +131,21 @@
 }
 
 /* ══════════════════════════════════════
+   SMALL VIDEO  (media columna, ~180px, con video autoplay)
+   ══════════════════════════════════════ */
+
+.block-small-video {
+  height: 180px;
+}
+
+.block-small-video video,
+.block-small-video img {
+  height: 180px;
+  width: 100%;
+  object-fit: cover;
+}
+
+/* ══════════════════════════════════════
    LARGE CARD  (ancho completo, ~240px)
    ══════════════════════════════════════ */
 

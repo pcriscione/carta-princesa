@@ -1,5 +1,6 @@
 const BLOCK_COMPONENTS = {
   small_card:        renderSmallCard,
+  small_video:       renderSmallVideo,
   large_card:        renderLargeCard,
   horizontal_banner: renderHorizontalBanner,
   hero_video:        renderHeroVideo,
@@ -16,7 +17,7 @@ function renderBlock(block, idx) {
   const fn = BLOCK_COMPONENTS[block.block_type] ?? renderSmallCard;
 
   // Bloques que usan índice para rotación o altura
-  if (block.block_type === 'small_card') {
+  if (block.block_type === 'small_card' || block.block_type === 'small_video') {
     return fn(block, _smallIdx++);
   }
   if (block.block_type === 'masonry_image') {
