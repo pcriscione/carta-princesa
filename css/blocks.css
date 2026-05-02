@@ -119,7 +119,7 @@
 }
 
 /* ══════════════════════════════════════
-   SMALL CARD  (media columna, ~180px)
+   SMALL CARD  (media columna, ~180px, 3 paneles slide)
    ══════════════════════════════════════ */
 
 .block-small-card {
@@ -127,6 +127,7 @@
   border-color: transparent;
 }
 
+/* Borde dorado sobre la imagen */
 .block-small-card::after {
   content: '';
   position: absolute;
@@ -137,86 +138,85 @@
   z-index: 5;
 }
 
-.block-small-card img {
-  height: 180px;
-}
-
-/* Flip 3D */
-.block-small-card {
-  perspective: 700px;
-}
-
-.flip-inner {
-  position: relative;
-  width: 100%;
+/* Slide track: 3 paneles en fila, cada uno = 100% del ancho */
+.sc-track {
+  display: flex;
+  width: 300%;
   height: 100%;
-  transform-style: preserve-3d;
-  -webkit-transform-style: preserve-3d;
-  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1),
-              -webkit-transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.block-small-card.flipped .flip-inner {
-  transform: rotateY(180deg);
-  -webkit-transform: rotateY(180deg);
+.sc-panel {
+  width: 33.3333%;
+  height: 100%;
+  flex-shrink: 0;
+  position: relative;
 }
 
-.flip-front,
-.flip-back {
-  position: absolute;
-  inset: 0;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  transform: translateZ(0);
-  -webkit-transform: translateZ(0);
-  border-radius: var(--radius-sm);
-  overflow: hidden;
+/* Panel 1 — imagen */
+.sc-panel--img img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
 }
 
-.flip-front {
-  transform: rotateY(0deg) translateZ(1px);
-  -webkit-transform: rotateY(0deg) translateZ(1px);
-}
-
-.flip-back {
-  transform: rotateY(180deg) translateZ(1px);
-  -webkit-transform: rotateY(180deg) translateZ(1px);
+/* Paneles 2 y 3 — texto */
+.sc-panel--info,
+.sc-panel--meta {
   background: var(--card-bg);
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 0.35rem;
+  gap: 0.3rem;
   padding: 0.85rem 0.9rem;
-  border: 1px solid var(--gold-dim);
-  border-radius: var(--radius-sm);
+  overflow: hidden;
 }
 
-.flip-back-name {
+.sc-name {
   font-family: var(--font-title);
   font-style: italic;
   font-weight: 300;
-  font-size: 1.05rem;
+  font-size: 1rem;
   color: var(--paper);
   line-height: 1.2;
 }
 
-.flip-back-desc {
+.sc-desc {
   font-family: var(--font-body);
-  font-size: 0.62rem;
+  font-size: 0.6rem;
   font-weight: 300;
   color: rgba(240,232,216,0.55);
   line-height: 1.5;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
 }
 
-.flip-tags {
+.sc-desc--empty {
+  color: rgba(240,232,216,0.25);
+  font-style: italic;
+}
+
+.sc-price {
+  font-family: var(--font-price);
+  font-size: 1rem;
+  color: var(--gold);
+  letter-spacing: 0.05em;
+  margin-top: auto;
+}
+
+/* Tags */
+.sc-tags {
   display: flex;
   flex-wrap: wrap;
   gap: 4px;
+  margin-bottom: 0.1rem;
 }
 
-.flip-tag {
+.sc-tag {
   font-family: var(--font-body);
-  font-size: 0.48rem;
+  font-size: 0.46rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--gold);
@@ -225,19 +225,51 @@
   padding: 0.15rem 0.5rem;
 }
 
-.flip-meta {
+/* Alérgenos */
+.sc-alergenos {
+  font-family: var(--font-body);
+  font-size: 0.58rem;
+  font-weight: 300;
+  color: rgba(240,232,216,0.45);
+  line-height: 1.4;
+}
+
+.sc-label {
+  color: rgba(240,232,216,0.6);
+  font-weight: 400;
+}
+
+/* Calorías */
+.sc-calorias {
   font-family: var(--font-body);
   font-size: 0.58rem;
   font-weight: 300;
   color: rgba(240,232,216,0.35);
 }
 
-.flip-back-price {
-  font-family: var(--font-price);
-  font-size: 1.05rem;
-  color: var(--gold);
-  letter-spacing: 0.05em;
-  margin-top: auto;
+/* Indicadores de panel */
+.sc-dots {
+  position: absolute;
+  bottom: 7px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  z-index: 6;
+  pointer-events: none;
+}
+
+.sc-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(240,232,216,0.3);
+  transition: background 0.25s;
+}
+
+.sc-dot--active {
+  background: var(--gold);
 }
 
 /* ══════════════════════════════════════
