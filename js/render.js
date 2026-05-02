@@ -31,12 +31,15 @@ function renderBlocksFeaturedPair(blocks) {
   const resultado = [];
   let i = 0;
   while (i < blocks.length) {
-    if (
-      blocks[i].block_type === 'featured_pair' &&
-      blocks[i + 1]?.block_type === 'featured_pair'
-    ) {
-      resultado.push(renderFeaturedPair(blocks[i], blocks[i + 1]));
-      i += 2;
+    if (blocks[i].block_type === 'featured_pair') {
+      if (blocks[i + 1]?.block_type === 'featured_pair') {
+        resultado.push(renderFeaturedPair(blocks[i], blocks[i + 1]));
+        i += 2;
+      } else {
+        // Bloque impar: cae a large_card
+        resultado.push(renderLargeCard(blocks[i]));
+        i++;
+      }
     } else {
       resultado.push(renderBlock(blocks[i], i));
       i++;
