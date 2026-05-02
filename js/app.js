@@ -67,4 +67,11 @@ async function arrancar() {
   }
 }
 
+// Flip para small_card
+document.addEventListener('click', e => {
+  const card = e.target.closest('.block-small-card[data-item-id]');
+  if (!card) return;
+  card.classList.toggle('flipped');
+});
+
 document.addEventListener('DOMContentLoaded', arrancar);

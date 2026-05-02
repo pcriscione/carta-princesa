@@ -141,6 +141,94 @@
   height: 180px;
 }
 
+/* Flip 3D */
+.block-small-card {
+  perspective: 700px;
+}
+
+.flip-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.block-small-card.flipped .flip-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-front,
+.flip-back {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.flip-back {
+  transform: rotateY(180deg);
+  background: var(--card-bg);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 0.85rem 0.9rem;
+  border: 1px solid var(--gold-dim);
+  border-radius: var(--radius-sm);
+}
+
+.flip-back-name {
+  font-family: var(--font-title);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 1.05rem;
+  color: var(--paper);
+  line-height: 1.2;
+}
+
+.flip-back-desc {
+  font-family: var(--font-body);
+  font-size: 0.62rem;
+  font-weight: 300;
+  color: rgba(240,232,216,0.55);
+  line-height: 1.5;
+}
+
+.flip-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.flip-tag {
+  font-family: var(--font-body);
+  font-size: 0.48rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid var(--gold-dim);
+  border-radius: 20px;
+  padding: 0.15rem 0.5rem;
+}
+
+.flip-meta {
+  font-family: var(--font-body);
+  font-size: 0.58rem;
+  font-weight: 300;
+  color: rgba(240,232,216,0.35);
+}
+
+.flip-back-price {
+  font-family: var(--font-price);
+  font-size: 1.05rem;
+  color: var(--gold);
+  letter-spacing: 0.05em;
+  margin-top: auto;
+}
+
 /* ══════════════════════════════════════
    SMALL VIDEO  (media columna, ~180px, con video autoplay)
    ══════════════════════════════════════ */
