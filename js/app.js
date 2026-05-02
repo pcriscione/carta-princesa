@@ -67,6 +67,13 @@ async function arrancar() {
   }
 }
 
+// Flip para large_card
+document.addEventListener('click', e => {
+  const card = e.target.closest('.block-large-card[data-item-id]');
+  if (!card) return;
+  card.classList.toggle('flipped');
+});
+
 // Slide 3 paneles para small_card
 document.addEventListener('click', e => {
   const card = e.target.closest('.block-small-card[data-item-id]');

@@ -293,6 +293,117 @@
 
 .block-large-card {
   height: 240px;
+  overflow: visible; /* necesario para el flip 3D */
+  perspective: 800px;
+}
+
+.lc-flip-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.block-large-card.flipped .lc-flip-inner {
+  transform: rotateY(180deg);
+  -webkit-transform: rotateY(180deg);
+}
+
+.lc-front,
+.lc-back {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-sm);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.lc-front {
+  overflow: hidden;
+}
+
+.lc-back {
+  transform: rotateY(180deg);
+  -webkit-transform: rotateY(180deg);
+  background: var(--card-bg);
+  border: 1px solid var(--gold-dim);
+  overflow-y: auto;
+  padding: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.lc-back-name {
+  font-family: var(--font-title);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 1.35rem;
+  color: var(--paper);
+  line-height: 1.2;
+}
+
+.lc-back-price {
+  font-family: var(--font-price);
+  font-size: 1.1rem;
+  color: var(--gold);
+  letter-spacing: 0.05em;
+}
+
+.lc-back-desc {
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  font-weight: 300;
+  color: rgba(240,232,216,0.6);
+  line-height: 1.55;
+  margin-top: 0.1rem;
+}
+
+.lc-back-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.lc-back-tag {
+  font-family: var(--font-body);
+  font-size: 0.46rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid var(--gold-dim);
+  border-radius: 20px;
+  padding: 0.15rem 0.5rem;
+}
+
+.lc-back-alergenos {
+  font-family: var(--font-body);
+  font-size: 0.58rem;
+  font-weight: 300;
+  color: rgba(240,232,216,0.45);
+  line-height: 1.4;
+}
+
+.lc-back-label {
+  color: rgba(240,232,216,0.6);
+  font-weight: 400;
+}
+
+.lc-back-calorias {
+  font-family: var(--font-body);
+  font-size: 0.58rem;
+  font-weight: 300;
+  color: rgba(240,232,216,0.35);
+}
+
+.lc-back-horario {
+  font-family: var(--font-body);
+  font-size: 0.58rem;
+  font-weight: 300;
+  color: rgba(240,232,216,0.4);
+  margin-top: auto;
 }
 
 .block-large-card img {
