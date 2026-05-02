@@ -125,7 +125,16 @@
 .block-small-card {
   height: 180px;
   border-color: transparent;
-  box-shadow: 0 8px 24px var(--shadow), inset 0 0 0 1.5px var(--gold);
+}
+
+.block-small-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1.5px solid var(--gold);
+  border-radius: var(--radius-sm);
+  pointer-events: none;
+  z-index: 5;
 }
 
 .block-small-card img {
