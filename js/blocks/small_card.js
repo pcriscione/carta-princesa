@@ -18,7 +18,6 @@ function renderSmallCard(block, idx = 0) {
       ${item.description
         ? `<div class="sc-desc">${escHtml(item.description)}</div>`
         : '<div class="sc-desc sc-desc--empty">Sin descripción</div>'}
-      <div class="sc-price">${precio}</div>
     </div>
   `;
 
