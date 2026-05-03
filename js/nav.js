@@ -5,8 +5,11 @@ function iniciarNav(secciones) {
   const navTabs = document.getElementById('nav-tabs');
   if (!navTabs) return;
 
+  // Pill deslizante
+  navTabs.insertAdjacentHTML('afterbegin', '<div class="nav-pill" aria-hidden="true"></div>');
+
   // Renderizar tabs
-  navTabs.innerHTML = secciones
+  navTabs.innerHTML += secciones
     .filter(s => s.is_active)
     .map(s => `
       <button class="nav-tab"
@@ -31,9 +34,20 @@ function iniciarNav(secciones) {
   // Observer: activa el tab según qué sección está visible
   _conectarObserver(secciones);
 
-  // Activar el primer tab por defecto
+  // Activar el primer tab por defecto (esperar un frame para que los tabs tengan dimensiones)
   const primera = secciones.find(s => s.is_active);
-  if (primera) activarTab(primera.slug);
+  if (primera) requestAnimationFrame(() => activarTab(primera.slug));
+}
+
+function _moverPill(slug) {
+  const navTabs = document.getElementById('nav-tabs');
+  if (!navTabs) return;
+  const pill = navTabs.querySelector('.nav-pill');
+  const tab  = navTabs.querySelector(`.nav-tab[data-slug="${slug}"]`);
+  if (!pill || !tab) return;
+
+  pill.style.width     = tab.offsetWidth + 'px';
+  pill.style.transform = `translateX(${tab.offsetLeft}px)`;
 }
 
 function activarTab(slug) {
@@ -46,22 +60,21 @@ function activarTab(slug) {
   navTabs.querySelectorAll('.nav-tab').forEach(tab => {
     const esActivo = tab.dataset.slug === slug;
     tab.classList.toggle('active', esActivo);
-    // Centrar el tab activo dentro del scroll horizontal
     if (esActivo) {
       tab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
     }
   });
+
+  _moverPill(slug);
 }
 
 function _conectarObserver(secciones) {
   if (_scrollObserver) _scrollObserver.disconnect();
 
-  // El nav sticky tiene ~48px de altura; el offset compensa eso
   const NAV_H = 48;
 
   _scrollObserver = new IntersectionObserver(
     entries => {
-      // Tomar la primera sección que cruce el umbral superior
       const visible = entries
         .filter(e => e.isIntersecting)
         .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
@@ -79,15 +92,5 @@ function _conectarObserver(secciones) {
   secciones.filter(s => s.is_active).forEach(s => {
     const el = document.getElementById(s.slug);
     if (el) _scrollObserver.observe(el);
-  });
-}
-
-// Fade suave de las cards al cambiar de sección (llamado desde nav click)
-function fadeSecciones(slugActivo) {
-  document.querySelectorAll('.menu-section').forEach(el => {
-    if (el.id !== slugActivo) {
-      el.classList.add('fading');
-      setTimeout(() => el.classList.remove('fading'), 300);
-    }
   });
 }
