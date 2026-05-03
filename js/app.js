@@ -74,18 +74,5 @@ document.addEventListener('click', e => {
   card.classList.toggle('flipped');
 });
 
-// Slide 3 paneles para small_card
-document.addEventListener('click', e => {
-  const card = e.target.closest('.block-small-card[data-item-id]');
-  if (!card) return;
-  const current = parseInt(card.dataset.slide || '0');
-  const next = (current + 1) % 3;
-  card.dataset.slide = next;
-  const track = card.querySelector('.sc-track');
-  if (track) track.style.transform = `translateX(-${next * 33.3333}%)`;
-  card.querySelectorAll('.sc-dot').forEach((dot, i) => {
-    dot.classList.toggle('sc-dot--active', i === next);
-  });
-});
 
 document.addEventListener('DOMContentLoaded', arrancar);
