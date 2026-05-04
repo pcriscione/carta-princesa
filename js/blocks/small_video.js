@@ -8,10 +8,9 @@ function renderSmallVideo(block, idx = 0) {
   if (item.video_url) {
     mediaHtml = `
       <video autoplay muted loop playsinline webkit-playsinline
-             preload="auto"
              poster="${item.image_url || ''}"
              aria-hidden="true">
-        <source src="${item.video_url}" type="video/mp4">
+        <source src="${item.video_url}">
       </video>
     `;
   } else if (item.image_url) {
