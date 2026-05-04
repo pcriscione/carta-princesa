@@ -55,6 +55,12 @@ async function arrancar() {
   // 4. Renderizar carta
   contenedor.innerHTML = renderCarta({ secciones, blocks });
 
+  // 4b. Forzar reproducción de videos (iOS Safari ignora autoplay sin .play())
+  contenedor.querySelectorAll('video').forEach(v => {
+    v.muted = true;
+    v.play().catch(() => {});
+  });
+
   // 5. Registrar items para el modal
   registrarItems(blocks);
 
