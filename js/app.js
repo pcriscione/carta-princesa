@@ -55,10 +55,22 @@ async function arrancar() {
   // 4. Renderizar carta
   contenedor.innerHTML = renderCarta({ secciones, blocks });
 
-  // 4b. Forzar reproducción de videos (iOS Safari ignora autoplay sin .play())
+  // 4b. Autoplay robusto: observer juega cuando el video entra en pantalla
+  const _videoObs = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      const v = entry.target;
+      if (entry.isIntersecting) {
+        v.muted = true;
+        v.play().catch(() => {});
+      } else {
+        v.pause();
+      }
+    });
+  }, { threshold: 0.25 });
+
   contenedor.querySelectorAll('video').forEach(v => {
     v.muted = true;
-    v.play().catch(() => {});
+    _videoObs.observe(v);
   });
 
   // 5. Registrar items para el modal

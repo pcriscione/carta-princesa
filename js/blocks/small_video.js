@@ -7,10 +7,11 @@ function renderSmallVideo(block, idx = 0) {
   let mediaHtml;
   if (item.video_url) {
     mediaHtml = `
-      <video autoplay muted loop playsinline
+      <video autoplay muted loop playsinline webkit-playsinline
+             preload="auto"
              poster="${item.image_url || ''}"
              aria-hidden="true">
-        <source src="${item.video_url}">
+        <source src="${item.video_url}" type="video/mp4">
       </video>
     `;
   } else if (item.image_url) {
