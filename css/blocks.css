@@ -37,6 +37,8 @@
   display: block;
   filter: sepia(15%) contrast(1.05) brightness(0.9);
   transition: transform 0.5s ease;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
 }
 
 .block-card:active img,
