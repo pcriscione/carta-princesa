@@ -69,9 +69,88 @@
   padding: 0 var(--pad) 5rem;
 }
 
-/* ── SECCIÓN ── */
+/* ── SECCIÓN (una a la vez) ── */
 .menu-section {
+  display: none;
   margin-bottom: 2.5rem;
+}
+
+.menu-section.section-visible {
+  display: block;
+  animation: var(--section-anim, anim-fade) 0.38s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+@keyframes anim-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes anim-slide-fwd {
+  from { opacity: 0; transform: translateX(32px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@keyframes anim-slide-bwd {
+  from { opacity: 0; transform: translateX(-32px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@keyframes anim-scale {
+  from { opacity: 0; transform: scale(0.94); }
+  to   { opacity: 1; transform: none; }
+}
+
+@keyframes anim-blur {
+  from { opacity: 0; filter: blur(12px); transform: scale(1.03); }
+  to   { opacity: 1; filter: none;        transform: none; }
+}
+
+/* ── PICKER DE TRANSICIÓN (preview) ── */
+.transition-picker {
+  position: fixed;
+  bottom: 5.5rem;
+  right: 1rem;
+  z-index: 200;
+  background: rgba(12,10,6,0.88);
+  border: 1px solid rgba(200,150,42,0.35);
+  border-radius: 12px;
+  padding: 0.55rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.transition-picker-label {
+  font-family: var(--font-body);
+  font-size: 0.42rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(240,232,216,0.4);
+  text-align: center;
+  padding-bottom: 0.2rem;
+}
+
+.tp-btn {
+  font-family: var(--font-body);
+  font-size: 0.55rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(240,232,216,0.6);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  padding: 0.3rem 0.6rem;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.tp-btn.active {
+  color: var(--gold);
+  border-color: var(--gold-dim);
+  background: rgba(200,150,42,0.1);
 }
 
 .section-title {
