@@ -1,30 +1,44 @@
-let _navActivo  = null;
-let _tabSlugs   = [];
+let _navActivo = null;
+let _tabSlugs  = [];
 
+// Emil: ease-out fuerte para entrada (starts fast = feels responsive)
+// Tiempos asimétricos: salida más rápida que entrada
 const TRANSICIONES = [
   {
-    id: 'fade',  label: 'Fade',
-    inFwd:  'anim-fade-in',       inBwd:  'anim-fade-in',
-    outFwd: 'anim-fade-out',      outBwd: 'anim-fade-out',
+    id: 'drift', label: 'Drift',
+    inFwd:  { name: 'drift-in',     dur: '260ms', ease: 'cubic-bezier(0.23, 1, 0.32, 1)' },
+    inBwd:  { name: 'drift-in',     dur: '260ms', ease: 'cubic-bezier(0.23, 1, 0.32, 1)' },
+    outFwd: { name: 'drift-out',    dur: '160ms', ease: 'ease-in' },
+    outBwd: { name: 'drift-out',    dur: '160ms', ease: 'ease-in' },
   },
   {
-    id: 'slide', label: 'Slide',
-    inFwd:  'anim-slide-in-fwd',  inBwd:  'anim-slide-in-bwd',
-    outFwd: 'anim-slide-out-fwd', outBwd: 'anim-slide-out-bwd',
+    id: 'push', label: 'Push',
+    inFwd:  { name: 'push-in-fwd',  dur: '320ms', ease: 'cubic-bezier(0.32, 0.72, 0, 1)' },
+    inBwd:  { name: 'push-in-bwd',  dur: '320ms', ease: 'cubic-bezier(0.32, 0.72, 0, 1)' },
+    outFwd: { name: 'push-out-fwd', dur: '220ms', ease: 'cubic-bezier(0.32, 0.72, 0, 1)' },
+    outBwd: { name: 'push-out-bwd', dur: '220ms', ease: 'cubic-bezier(0.32, 0.72, 0, 1)' },
   },
   {
-    id: 'scale', label: 'Scale',
-    inFwd:  'anim-scale-in',      inBwd:  'anim-scale-in',
-    outFwd: 'anim-scale-out',     outBwd: 'anim-scale-out',
+    id: 'reveal', label: 'Reveal',
+    inFwd:  { name: 'reveal-in',    dur: '350ms', ease: 'cubic-bezier(0.23, 1, 0.32, 1)' },
+    inBwd:  { name: 'reveal-in',    dur: '350ms', ease: 'cubic-bezier(0.23, 1, 0.32, 1)' },
+    outFwd: { name: 'reveal-out',   dur: '150ms', ease: 'ease-in' },
+    outBwd: { name: 'reveal-out',   dur: '150ms', ease: 'ease-in' },
   },
   {
-    id: 'blur',  label: 'Blur',
-    inFwd:  'anim-blur-in',       inBwd:  'anim-blur-in',
-    outFwd: 'anim-blur-out',      outBwd: 'anim-blur-out',
+    id: 'morph', label: 'Morph',
+    inFwd:  { name: 'morph-in',     dur: '280ms', ease: 'cubic-bezier(0.23, 1, 0.32, 1)' },
+    inBwd:  { name: 'morph-in',     dur: '280ms', ease: 'cubic-bezier(0.23, 1, 0.32, 1)' },
+    outFwd: { name: 'morph-out',    dur: '180ms', ease: 'ease-in' },
+    outBwd: { name: 'morph-out',    dur: '180ms', ease: 'ease-in' },
   },
 ];
 
 let _transActiva = TRANSICIONES[0];
+
+function _css(anim) {
+  return `${anim.name} ${anim.dur} ${anim.ease} both`;
+}
 
 function iniciarNav(secciones) {
   const navTabs = document.getElementById('nav-tabs');
@@ -65,35 +79,35 @@ function _moverPill(slug) {
 function activarTab(slug, trans) {
   if (_navActivo === slug) return;
 
-  const t = trans || _transActiva;
+  const t       = trans || _transActiva;
   const prevIdx = _tabSlugs.indexOf(_navActivo);
   const nextIdx = _tabSlugs.indexOf(slug);
   const esFwd   = prevIdx < nextIdx || prevIdx === -1;
 
-  const animIn  = esFwd ? t.inFwd  : t.inBwd;
-  const animOut = esFwd ? t.outFwd : t.outBwd;
-
-  // Animar salida de la sección anterior
+  // Animar SALIDA (más rápida — el sistema responde)
   if (_navActivo) {
     const anterior = document.getElementById(_navActivo);
     if (anterior) {
       anterior.classList.remove('section-visible');
       anterior.classList.add('section-leaving');
-      anterior.style.animation = `${animOut} 0.3s ease-in forwards`;
-      setTimeout(() => anterior.classList.remove('section-leaving'), 350);
+      anterior.style.animation = _css(esFwd ? t.outFwd : t.outBwd);
+      const dur = parseInt(esFwd ? t.outFwd.dur : t.outBwd.dur);
+      setTimeout(() => anterior.classList.remove('section-leaving'), dur + 50);
     }
   }
 
   _navActivo = slug;
 
-  // Animar entrada de la nueva sección
+  // Animar ENTRADA (con punch — el usuario ve respuesta inmediata)
   const nueva = document.getElementById(slug);
   if (nueva) {
     nueva.classList.remove('section-leaving');
     nueva.style.animation = '';
     nueva.offsetHeight; // reflow
-    nueva.style.animation = `${animIn} 0.45s cubic-bezier(0.22, 1, 0.36, 1) both`;
+    nueva.style.animation = _css(esFwd ? t.inFwd : t.inBwd);
     nueva.classList.add('section-visible');
+    // Scroll al top del contenido al cambiar sección
+    window.scrollTo({ top: 0, behavior: 'instant' });
   }
 
   // Actualizar tabs y pill
@@ -126,14 +140,14 @@ function _inyectarPicker() {
     picker.querySelectorAll('.tp-btn').forEach(b =>
       b.classList.toggle('active', b.dataset.trans === t.id)
     );
-    // Demo: re-animar la sección activa para que se vea el efecto
+    // Demo: re-animar sección activa con el nuevo estilo
     if (_navActivo) {
       const seccion = document.getElementById(_navActivo);
       if (seccion) {
         seccion.classList.remove('section-visible');
         seccion.style.animation = '';
         seccion.offsetHeight;
-        seccion.style.animation = `${t.inFwd} 0.45s cubic-bezier(0.22, 1, 0.36, 1) both`;
+        seccion.style.animation = _css(t.inFwd);
         seccion.classList.add('section-visible');
       }
     }

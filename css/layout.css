@@ -79,38 +79,60 @@
   margin-bottom: 2.5rem;
 }
 
-/* Entrada */
 .menu-section.section-visible {
   display: block;
-  animation: var(--section-anim-in, anim-fade-in) 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-/* Salida: ocupa espacio absoluto para que ambas animen juntas */
 .menu-section.section-leaving {
   display: block;
   position: absolute;
   top: 0; left: 0; right: 0;
   pointer-events: none;
-  animation: var(--section-anim-out, anim-fade-out) 0.3s ease-in forwards;
 }
 
-/* ── FADE ── */
-@keyframes anim-fade-in  { from { opacity: 0; }   to { opacity: 1; } }
-@keyframes anim-fade-out { from { opacity: 1; }   to { opacity: 0; } }
+/* ── Stagger: cards entran en cascada ── */
+.menu-section.section-visible .blocks-grid > * {
+  animation: card-in 0.35s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+.menu-section.section-visible .blocks-grid > *:nth-child(1) { animation-delay: 30ms; }
+.menu-section.section-visible .blocks-grid > *:nth-child(2) { animation-delay: 60ms; }
+.menu-section.section-visible .blocks-grid > *:nth-child(3) { animation-delay: 90ms; }
+.menu-section.section-visible .blocks-grid > *:nth-child(4) { animation-delay: 120ms; }
+.menu-section.section-visible .blocks-grid > *:nth-child(5) { animation-delay: 150ms; }
+.menu-section.section-visible .blocks-grid > *:nth-child(6) { animation-delay: 180ms; }
+.menu-section.section-visible .blocks-grid > *:nth-child(n+7) { animation-delay: 200ms; }
 
-/* ── SLIDE ── */
-@keyframes anim-slide-in-fwd  { from { opacity: 0; transform: translateX(110px); }  to { opacity: 1; transform: translateX(0); } }
-@keyframes anim-slide-in-bwd  { from { opacity: 0; transform: translateX(-110px); } to { opacity: 1; transform: translateX(0); } }
-@keyframes anim-slide-out-fwd { from { opacity: 1; transform: translateX(0); } to { opacity: 0; transform: translateX(-80px); } }
-@keyframes anim-slide-out-bwd { from { opacity: 1; transform: translateX(0); } to { opacity: 0; transform: translateX(80px); } }
+@keyframes card-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
 
-/* ── SCALE ── */
-@keyframes anim-scale-in  { from { opacity: 0; transform: scale(0.82); }  to { opacity: 1; transform: scale(1); } }
-@keyframes anim-scale-out { from { opacity: 1; transform: scale(1); }     to { opacity: 0; transform: scale(1.1); } }
+/* ══ 1. DRIFT — fade + deriva vertical suave ══ */
+@keyframes drift-in  { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes drift-out { from { opacity: 1; transform: translateY(0); }    to { opacity: 0; transform: translateY(-8px); } }
 
-/* ── BLUR ── */
-@keyframes anim-blur-in  { from { opacity: 0; filter: blur(20px); transform: scale(1.06); } to { opacity: 1; filter: blur(0); transform: scale(1); } }
-@keyframes anim-blur-out { from { opacity: 1; filter: blur(0);    transform: scale(1); }    to { opacity: 0; filter: blur(20px); transform: scale(0.94); } }
+/* ══ 2. PUSH — iOS navigation: sección nueva empuja a la vieja ══ */
+@keyframes push-in-fwd  { from { opacity: 0.6; transform: translateX(100%); } to { opacity: 1; transform: translateX(0); } }
+@keyframes push-in-bwd  { from { opacity: 0.6; transform: translateX(-100%); } to { opacity: 1; transform: translateX(0); } }
+@keyframes push-out-fwd { from { opacity: 1; transform: translateX(0); } to { opacity: 0; transform: translateX(-35%); } }
+@keyframes push-out-bwd { from { opacity: 1; transform: translateX(0); } to { opacity: 0; transform: translateX(35%); } }
+
+/* ══ 3. REVEAL — clip-path que descubre el contenido ══ */
+@keyframes reveal-in  {
+  from { opacity: 0.4; clip-path: inset(4% 4% 4% 4% round 16px); }
+  to   { opacity: 1;   clip-path: inset(0% 0% 0% 0% round 0px); }
+}
+@keyframes reveal-out { from { opacity: 1; } to { opacity: 0; } }
+
+/* ══ 4. MORPH — blur que disuelve entre estados ══ */
+@keyframes morph-in  {
+  from { opacity: 0; filter: blur(10px); transform: scale(0.97); }
+  to   { opacity: 1; filter: blur(0);    transform: scale(1); }
+}
+@keyframes morph-out {
+  from { opacity: 1; filter: blur(0);   transform: scale(1); }
+  to   { opacity: 0; filter: blur(10px); transform: scale(1.02); }
+}
 
 /* ── PICKER DE TRANSICIÓN (preview) ── */
 .transition-picker {
