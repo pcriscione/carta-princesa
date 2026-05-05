@@ -70,40 +70,47 @@
 }
 
 /* ── SECCIÓN (una a la vez) ── */
+.menu-container {
+  position: relative;
+}
+
 .menu-section {
   display: none;
   margin-bottom: 2.5rem;
 }
 
+/* Entrada */
 .menu-section.section-visible {
   display: block;
-  animation: var(--section-anim, anim-fade) 0.5s cubic-bezier(0.4, 0, 0.2, 1) both;
+  animation: var(--section-anim-in, anim-fade-in) 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-@keyframes anim-fade {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+/* Salida: ocupa espacio absoluto para que ambas animen juntas */
+.menu-section.section-leaving {
+  display: block;
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  pointer-events: none;
+  animation: var(--section-anim-out, anim-fade-out) 0.3s ease-in forwards;
 }
 
-@keyframes anim-slide-fwd {
-  from { opacity: 0; transform: translateX(100px); }
-  to   { opacity: 1; transform: none; }
-}
+/* ── FADE ── */
+@keyframes anim-fade-in  { from { opacity: 0; }   to { opacity: 1; } }
+@keyframes anim-fade-out { from { opacity: 1; }   to { opacity: 0; } }
 
-@keyframes anim-slide-bwd {
-  from { opacity: 0; transform: translateX(-100px); }
-  to   { opacity: 1; transform: none; }
-}
+/* ── SLIDE ── */
+@keyframes anim-slide-in-fwd  { from { opacity: 0; transform: translateX(110px); }  to { opacity: 1; transform: translateX(0); } }
+@keyframes anim-slide-in-bwd  { from { opacity: 0; transform: translateX(-110px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes anim-slide-out-fwd { from { opacity: 1; transform: translateX(0); } to { opacity: 0; transform: translateX(-80px); } }
+@keyframes anim-slide-out-bwd { from { opacity: 1; transform: translateX(0); } to { opacity: 0; transform: translateX(80px); } }
 
-@keyframes anim-scale {
-  from { opacity: 0; transform: scale(0.78); }
-  to   { opacity: 1; transform: none; }
-}
+/* ── SCALE ── */
+@keyframes anim-scale-in  { from { opacity: 0; transform: scale(0.82); }  to { opacity: 1; transform: scale(1); } }
+@keyframes anim-scale-out { from { opacity: 1; transform: scale(1); }     to { opacity: 0; transform: scale(1.1); } }
 
-@keyframes anim-blur {
-  from { opacity: 0; filter: blur(24px) brightness(1.4); transform: scale(1.08); }
-  to   { opacity: 1; filter: none;                        transform: none; }
-}
+/* ── BLUR ── */
+@keyframes anim-blur-in  { from { opacity: 0; filter: blur(20px); transform: scale(1.06); } to { opacity: 1; filter: blur(0); transform: scale(1); } }
+@keyframes anim-blur-out { from { opacity: 1; filter: blur(0);    transform: scale(1); }    to { opacity: 0; filter: blur(20px); transform: scale(0.94); } }
 
 /* ── PICKER DE TRANSICIÓN (preview) ── */
 .transition-picker {

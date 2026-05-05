@@ -1,11 +1,27 @@
 let _navActivo  = null;
-let _tabSlugs   = [];   // orden de tabs para detectar dirección
+let _tabSlugs   = [];
 
 const TRANSICIONES = [
-  { id: 'fade',  label: 'Fade',  fwd: 'anim-fade',      bwd: 'anim-fade' },
-  { id: 'slide', label: 'Slide', fwd: 'anim-slide-fwd',  bwd: 'anim-slide-bwd' },
-  { id: 'scale', label: 'Scale', fwd: 'anim-scale',      bwd: 'anim-scale' },
-  { id: 'blur',  label: 'Blur',  fwd: 'anim-blur',       bwd: 'anim-blur' },
+  {
+    id: 'fade',  label: 'Fade',
+    inFwd:  'anim-fade-in',       inBwd:  'anim-fade-in',
+    outFwd: 'anim-fade-out',      outBwd: 'anim-fade-out',
+  },
+  {
+    id: 'slide', label: 'Slide',
+    inFwd:  'anim-slide-in-fwd',  inBwd:  'anim-slide-in-bwd',
+    outFwd: 'anim-slide-out-fwd', outBwd: 'anim-slide-out-bwd',
+  },
+  {
+    id: 'scale', label: 'Scale',
+    inFwd:  'anim-scale-in',      inBwd:  'anim-scale-in',
+    outFwd: 'anim-scale-out',     outBwd: 'anim-scale-out',
+  },
+  {
+    id: 'blur',  label: 'Blur',
+    inFwd:  'anim-blur-in',       inBwd:  'anim-blur-in',
+    outFwd: 'anim-blur-out',      outBwd: 'anim-blur-out',
+  },
 ];
 
 let _transActiva = TRANSICIONES[0];
@@ -17,7 +33,6 @@ function iniciarNav(secciones) {
   const activas = secciones.filter(s => s.is_active);
   _tabSlugs = activas.map(s => s.slug);
 
-  // Renderizar tabs + pill
   navTabs.innerHTML = '<div class="nav-pill" aria-hidden="true"></div>' +
     activas.map(s => `
       <button class="nav-tab" data-slug="${s.slug}" aria-label="Ir a ${escHtml(s.name)}">
@@ -25,17 +40,14 @@ function iniciarNav(secciones) {
       </button>
     `).join('');
 
-  // Click en tab
   navTabs.addEventListener('click', e => {
     const tab = e.target.closest('.nav-tab');
     if (!tab) return;
     activarTab(tab.dataset.slug);
   });
 
-  // Picker de transición
   _inyectarPicker();
 
-  // Activar primera sección
   const primera = activas[0];
   if (primera) requestAnimationFrame(() => activarTab(primera.slug));
 }
@@ -50,46 +62,53 @@ function _moverPill(slug) {
   pill.style.transform = `translateX(${tab.offsetLeft}px)`;
 }
 
-function activarTab(slug) {
+function activarTab(slug, trans) {
   if (_navActivo === slug) return;
 
-  // Dirección: fwd si el nuevo tab está a la derecha del actual
+  const t = trans || _transActiva;
   const prevIdx = _tabSlugs.indexOf(_navActivo);
   const nextIdx = _tabSlugs.indexOf(slug);
-  const anim = (prevIdx < nextIdx) ? _transActiva.fwd : _transActiva.bwd;
-  document.documentElement.style.setProperty('--section-anim', anim);
+  const esFwd   = prevIdx < nextIdx || prevIdx === -1;
 
-  // Ocultar sección anterior
+  const animIn  = esFwd ? t.inFwd  : t.inBwd;
+  const animOut = esFwd ? t.outFwd : t.outBwd;
+
+  // Animar salida de la sección anterior
   if (_navActivo) {
     const anterior = document.getElementById(_navActivo);
-    if (anterior) anterior.classList.remove('section-visible');
+    if (anterior) {
+      anterior.classList.remove('section-visible');
+      anterior.classList.add('section-leaving');
+      anterior.style.animation = `${animOut} 0.3s ease-in forwards`;
+      setTimeout(() => anterior.classList.remove('section-leaving'), 350);
+    }
   }
 
   _navActivo = slug;
 
-  // Mostrar nueva sección
+  // Animar entrada de la nueva sección
   const nueva = document.getElementById(slug);
   if (nueva) {
-    // Reset animación forzando reflow
-    nueva.classList.remove('section-visible');
+    nueva.classList.remove('section-leaving');
+    nueva.style.animation = '';
     nueva.offsetHeight; // reflow
+    nueva.style.animation = `${animIn} 0.45s cubic-bezier(0.22, 1, 0.36, 1) both`;
     nueva.classList.add('section-visible');
   }
 
-  // Actualizar tabs
+  // Actualizar tabs y pill
   const navTabs = document.getElementById('nav-tabs');
-  if (!navTabs) return;
-  navTabs.querySelectorAll('.nav-tab').forEach(tab => {
-    tab.classList.toggle('active', tab.dataset.slug === slug);
-  });
-
+  if (navTabs) {
+    navTabs.querySelectorAll('.nav-tab').forEach(tab =>
+      tab.classList.toggle('active', tab.dataset.slug === slug)
+    );
+  }
   _moverPill(slug);
 }
 
 function _inyectarPicker() {
   const picker = document.createElement('div');
   picker.className = 'transition-picker';
-  picker.setAttribute('aria-label', 'Estilo de transición');
   picker.innerHTML = `
     <div class="transition-picker-label">Transición</div>
     ${TRANSICIONES.map(t => `
@@ -107,13 +126,14 @@ function _inyectarPicker() {
     picker.querySelectorAll('.tp-btn').forEach(b =>
       b.classList.toggle('active', b.dataset.trans === t.id)
     );
-    // Demo instantánea: re-mostrar la sección activa con la nueva animación
+    // Demo: re-animar la sección activa para que se vea el efecto
     if (_navActivo) {
       const seccion = document.getElementById(_navActivo);
       if (seccion) {
-        document.documentElement.style.setProperty('--section-anim', t.fwd);
         seccion.classList.remove('section-visible');
+        seccion.style.animation = '';
         seccion.offsetHeight;
+        seccion.style.animation = `${t.inFwd} 0.45s cubic-bezier(0.22, 1, 0.36, 1) both`;
         seccion.classList.add('section-visible');
       }
     }
