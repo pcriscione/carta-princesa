@@ -213,3 +213,214 @@
   border-radius: 50%;
   background: var(--gold-dim);
 }
+
+/* ══════════════════════════════════════
+   FLARE MODAL — desciende desde arriba
+   ══════════════════════════════════════ */
+
+.fm {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: flex;
+  flex-direction: column;
+  transform: translateY(-100%);
+  transition: transform 0.52s cubic-bezier(0.32, 0.72, 0, 1);
+  background: var(--card-bg);
+  overflow: hidden;
+}
+
+.fm--open {
+  transform: translateY(0);
+}
+
+/* Zona imagen — toca para cerrar */
+.fm-image-zone {
+  position: relative;
+  flex: 0 0 56%;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.fm-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: sepia(10%) contrast(1.06) brightness(0.85);
+}
+
+/* Gradiente sobre imagen */
+.fm-img-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(12,10,6,0.0) 50%,
+    rgba(12,10,6,0.85) 100%
+  );
+  pointer-events: none;
+}
+
+/* Línea dorada al fondo de la imagen */
+.fm-img-accent {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold) 30%, var(--gold) 70%, transparent);
+  transform-origin: left center;
+  transform: scaleX(0);
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: 0.55s;
+}
+
+.fm--open .fm-img-accent {
+  transform: scaleX(1);
+}
+
+/* Flare sweep — misma diagonal que la card */
+.fm-sweep {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    110deg,
+    transparent 18%,
+    rgba(255,252,235,0.18) 46%,
+    rgba(200,150,42,0.13) 54%,
+    transparent 82%
+  );
+  transform: translateX(-115%);
+  transition: none;
+  z-index: 2;
+}
+
+.fm-sweep--run {
+  transform: translateX(115%);
+  transition: transform 0.9s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Panel de vidrio esmerilado */
+.fm-panel {
+  flex: 1;
+  position: relative;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding: 1.2rem var(--pad) 3rem;
+  background: rgba(16, 10, 4, 0.82);
+  -webkit-backdrop-filter: blur(28px) saturate(1.4);
+  backdrop-filter: blur(28px) saturate(1.4);
+  border-top: 1px solid rgba(200,150,42,0.18);
+}
+
+.fm-panel::-webkit-scrollbar { display: none; }
+
+.fm-handle {
+  width: 36px;
+  height: 4px;
+  background: rgba(240,232,216,0.15);
+  border-radius: 2px;
+  margin: 0 auto 1rem;
+}
+
+/* Botón cerrar */
+.fm-close {
+  position: absolute;
+  top: 14px;
+  right: var(--pad);
+  width: 30px;
+  height: 30px;
+  background: rgba(200,150,42,0.12);
+  border: 1px solid rgba(200,150,42,0.3);
+  border-radius: 50%;
+  color: var(--gold);
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.2s ease;
+}
+
+.fm-close:active {
+  background: rgba(200,150,42,0.25);
+}
+
+/* Contenido con stagger */
+.fm-body > * {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.38s ease, transform 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.fm--open .fm-body > *:nth-child(1) { opacity: 1; transform: none; transition-delay: 0.38s; }
+.fm--open .fm-body > *:nth-child(2) { opacity: 1; transform: none; transition-delay: 0.46s; }
+.fm--open .fm-body > *:nth-child(3) { opacity: 1; transform: none; transition-delay: 0.52s; }
+.fm--open .fm-body > *:nth-child(4) { opacity: 1; transform: none; transition-delay: 0.58s; }
+.fm--open .fm-body > *:nth-child(5) { opacity: 1; transform: none; transition-delay: 0.63s; }
+.fm--open .fm-body > *:nth-child(6) { opacity: 1; transform: none; transition-delay: 0.67s; }
+
+.fm-name {
+  font-family: var(--font-title);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 1.8rem;
+  color: var(--paper);
+  line-height: 1.1;
+  margin-bottom: 0.25rem;
+  padding-right: 2rem; /* espacio para el botón X */
+}
+
+.fm-price {
+  font-family: var(--font-price);
+  font-size: 1.35rem;
+  color: var(--gold);
+  letter-spacing: 0.06em;
+  margin-bottom: 0.8rem;
+}
+
+.fm-desc {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 300;
+  color: rgba(240,232,216,0.6);
+  line-height: 1.65;
+  margin-bottom: 1rem;
+}
+
+.fm-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 0.9rem;
+}
+
+.fm-tag {
+  font-family: var(--font-body);
+  font-size: 0.52rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid var(--gold-dim);
+  border-radius: 20px;
+  padding: 0.22rem 0.62rem;
+}
+
+.fm-alergenos, .fm-calorias, .fm-horario {
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  font-weight: 300;
+  color: rgba(240,232,216,0.38);
+  line-height: 1.5;
+  margin-bottom: 0.4rem;
+}
+
+.fm-label {
+  color: rgba(240,232,216,0.55);
+  font-weight: 400;
+}

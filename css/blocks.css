@@ -640,6 +640,397 @@
 }
 
 /* ══════════════════════════════════════
+   FLARE CARD  (ancho completo, 320px)
+   Blind raise · flare sweep · text wipe · gold accent line
+   ══════════════════════════════════════ */
+
+.block-flare-card {
+  height: 320px;
+  overflow: hidden;
+  /* Entrance: blind raises from bottom edge */
+  clip-path: inset(0 0 100% 0 round var(--radius-sm));
+  transition: clip-path 0.72s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.3s ease;
+}
+
+.block-flare-card.fc-visible {
+  clip-path: inset(0 0 0% 0 round var(--radius-sm));
+}
+
+.block-flare-card:active {
+  transform: scale(0.984) !important;
+  box-shadow: 0 28px 60px rgba(0,0,0,0.9),
+              0 0 0 1.5px rgba(200,150,42,0.55) !important;
+}
+
+/* Image */
+.fc-img-wrap {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.fc-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: sepia(12%) contrast(1.08) brightness(0.8);
+  transform: scale(1.06);
+  transition: transform 0.5s ease;
+}
+
+.block-flare-card:active .fc-img-wrap img {
+  transform: scale(1.1);
+}
+
+/* One-shot diagonal flare sweep */
+.fc-flare {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background: linear-gradient(
+    110deg,
+    transparent 18%,
+    rgba(255,252,235,0.17) 46%,
+    rgba(200,150,42,0.13) 54%,
+    transparent 82%
+  );
+  transform: translateX(-115%);
+  transition: none;
+}
+
+.block-flare-card.fc-visible .fc-flare {
+  transform: translateX(115%);
+  transition: transform 0.9s cubic-bezier(0.25, 1, 0.5, 1);
+  transition-delay: 0.3s;
+}
+
+/* Shimmer: elliptical gold follows pointer/touch */
+.fc-shimmer {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  opacity: 0;
+  mix-blend-mode: screen;
+}
+
+/* Gradient overlay */
+.fc-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(12,10,6,0.0) 18%,
+    rgba(12,10,6,0.48) 52%,
+    rgba(12,10,6,0.96) 100%
+  );
+}
+
+/* Gold accent line traces across top after blind reveal */
+.fc-accent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold-dim), var(--gold) 50%, var(--gold-dim));
+  transform-origin: left center;
+  transform: scaleX(0);
+  z-index: 6;
+  transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: 0.52s;
+}
+
+.block-flare-card.fc-visible .fc-accent {
+  transform: scaleX(1);
+}
+
+/* Content stack */
+.fc-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 5;
+  padding: 1rem 1.1rem 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.fc-tags {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 0.18rem;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  transition-delay: 0.62s;
+}
+
+.block-flare-card.fc-visible .fc-tags {
+  opacity: 1;
+}
+
+.fc-tag {
+  font-family: var(--font-body);
+  font-size: 0.46rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid var(--gold-dim);
+  border-radius: 20px;
+  padding: 0.15rem 0.55rem;
+}
+
+/* Name: horizontal wipe in from left (Emil Kowalski clip-path technique) */
+.fc-name {
+  font-family: var(--font-title);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 1.75rem;
+  color: var(--paper);
+  line-height: 1.1;
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 0.58s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: 0.58s;
+}
+
+.block-flare-card.fc-visible .fc-name {
+  clip-path: inset(0 0% 0 0);
+}
+
+.fc-desc {
+  font-family: var(--font-body);
+  font-size: 0.63rem;
+  font-weight: 300;
+  color: rgba(240,232,216,0.5);
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(5px);
+  transition: opacity 0.38s ease,
+              transform 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: 0.76s;
+}
+
+.block-flare-card.fc-visible .fc-desc {
+  opacity: 1;
+  transform: none;
+}
+
+.fc-price {
+  font-family: var(--font-price);
+  font-size: 1.2rem;
+  color: var(--gold);
+  letter-spacing: 0.06em;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.32s ease,
+              transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: 0.84s;
+}
+
+.block-flare-card.fc-visible .fc-price {
+  opacity: 1;
+  transform: none;
+}
+
+/* ══════════════════════════════════════
+   CINEMATIC CARD  (ancho completo, 300px)
+   Tilt 3D · shimmer dorado · Ken Burns · entrada por scroll
+   ══════════════════════════════════════ */
+
+.block-cinematic-card {
+  height: 300px;
+  overflow: hidden;
+  /* Entrance start state */
+  opacity: 0;
+  transform: translateY(32px) scale(0.96);
+  /* Override base-card transition */
+  transition: opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.62s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.3s ease;
+}
+
+.block-cinematic-card.cc-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Active: spring lift (override base-card !important with same specificity + later position) */
+.block-cinematic-card:active {
+  transform: translateY(-4px) scale(1.015) !important;
+  box-shadow: 0 22px 52px rgba(0,0,0,0.88),
+              0 0 0 1.5px var(--gold-dim) !important;
+  z-index: 10;
+}
+
+/* Image: Ken Burns subtle pan */
+.cc-img-wrap {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.cc-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: sepia(15%) contrast(1.05) brightness(0.85);
+  transform: scale(1.08);
+  transition: transform 0.5s ease; /* base hover */
+}
+
+@keyframes cc-kenburns {
+  0%   { transform: scale(1.08) translateY(0); }
+  50%  { transform: scale(1.13) translateY(-1.5%); }
+  100% { transform: scale(1.08) translateY(0); }
+}
+
+.block-cinematic-card.cc-visible .cc-img-wrap img {
+  animation: cc-kenburns 14s ease-in-out infinite;
+}
+
+.block-cinematic-card:active .cc-img-wrap img {
+  animation: none;
+  transform: scale(1.12);
+}
+
+/* Shimmer: radial gold light follows pointer/touch */
+.cc-shimmer {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  border-radius: inherit;
+  opacity: 0;
+  mix-blend-mode: screen;
+}
+
+/* Overlay: darker for legibility */
+.cc-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(
+    175deg,
+    rgba(12,10,6,0.08) 0%,
+    rgba(12,10,6,0.45) 40%,
+    rgba(12,10,6,0.92) 100%
+  );
+}
+
+/* Content */
+.cc-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 4;
+  padding: 1rem 1.1rem 1.05rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.cc-tags {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 0.15rem;
+  /* Stagger entrance */
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.38s ease,
+              transform 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: 0.1s;
+}
+
+.block-cinematic-card.cc-visible .cc-tags {
+  opacity: 1;
+  transform: none;
+}
+
+.cc-tag {
+  font-family: var(--font-body);
+  font-size: 0.46rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid var(--gold-dim);
+  border-radius: 20px;
+  padding: 0.15rem 0.55rem;
+}
+
+.cc-name {
+  font-family: var(--font-title);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 1.55rem;
+  color: var(--paper);
+  line-height: 1.15;
+  /* Stagger entrance */
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.42s ease,
+              transform 0.44s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: 0.2s;
+}
+
+.block-cinematic-card.cc-visible .cc-name {
+  opacity: 1;
+  transform: none;
+}
+
+.cc-desc {
+  font-family: var(--font-body);
+  font-size: 0.63rem;
+  font-weight: 300;
+  color: rgba(240,232,216,0.52);
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  /* Stagger entrance */
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.38s ease,
+              transform 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: 0.28s;
+}
+
+.block-cinematic-card.cc-visible .cc-desc {
+  opacity: 1;
+  transform: none;
+}
+
+.cc-price {
+  font-family: var(--font-price);
+  font-size: 1.15rem;
+  color: var(--gold);
+  letter-spacing: 0.06em;
+  /* Stagger entrance */
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.35s ease,
+              transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: 0.34s;
+}
+
+.block-cinematic-card.cc-visible .cc-price {
+  opacity: 1;
+  transform: none;
+}
+
+/* ══════════════════════════════════════
    LABEL DE TIPO DE BLOQUE (dev preview)
    ══════════════════════════════════════ */
 

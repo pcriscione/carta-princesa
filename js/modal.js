@@ -36,11 +36,12 @@ function registrarItems(blocks) {
   });
 }
 
-// Delegación de clicks — large_card usa flip, el resto abre modal
+// Delegación de clicks — large_card usa flip, flare_card usa su propio modal, el resto abre modal
 document.addEventListener('click', e => {
   const card = e.target.closest('[data-item-id]');
   if (!card) return;
   if (card.classList.contains('block-large-card')) return;
+  if (card.classList.contains('block-flare-card')) return;
   abrirModal(card.dataset.itemId);
 });
 
