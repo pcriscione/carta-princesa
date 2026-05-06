@@ -7,6 +7,8 @@ const BLOCK_COMPONENTS = {
   recommended_card:  renderRecommendedCard,
   featured_pair:     renderFeaturedPair,
   masonry_image:     renderMasonryImage,
+  cinematic_card:    renderCinematicCard,
+  flare_card:        renderFlareCard,
 };
 
 // Contadores por sección para rotaciones e índices de altura

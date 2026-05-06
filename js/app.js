@@ -27,8 +27,9 @@ async function arrancar() {
   // 1. Skeletons inmediatos
   contenedor.innerHTML = renderSkeletons();
 
-  // 2. Inicializar modal (inyecta DOM una vez)
+  // 2. Inicializar modales (inyectan DOM una vez)
   iniciarModal();
+  iniciarFlareModal();
 
   // 3. Cargar datos
   let datos;
@@ -58,9 +59,16 @@ async function arrancar() {
 
   // 5. Registrar items para el modal
   registrarItems(blocks);
+  registrarFlareItems(blocks);
 
   // 6. Iniciar navegación
   iniciarNav(secciones);
+
+  // 7. Iniciar cinematic cards
+  initCinematicCards();
+
+  // 8. Iniciar flare cards
+  initFlareCards();
 
   // 7. Si los datos vienen de cache (Supabase falló pero había cache), avisar
   if (!USE_MOCK && datos._desdeCache) {
