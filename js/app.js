@@ -59,6 +59,9 @@ async function arrancar() {
 
   // 5. Registrar items para el modal
   registrarItems(blocks);
+
+  // 5b. Scroll reveal: staggered entrance de cada card
+  iniciarScrollReveal(contenedor);
   registrarFlareItems(blocks);
 
   // 6. Iniciar navegación

@@ -108,6 +108,8 @@ function activarTab(slug, trans) {
     nueva.classList.add('section-visible');
     // Scroll al top del contenido al cambiar sección
     window.scrollTo({ top: 0, behavior: 'instant' });
+    // Re-observar cards no reveladas aún (scroll reveal)
+    if (typeof reobservarSeccion === 'function') reobservarSeccion(nueva);
   }
 
   // Actualizar tabs y pill
