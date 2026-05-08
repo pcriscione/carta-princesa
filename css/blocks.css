@@ -21,7 +21,7 @@
 /* ── Scroll Reveal (equivalente a whileInView + staggerChildren) ── */
 .block-card.will-reveal {
   opacity: 0;
-  transform: translateY(44px);
+  transform: translateY(88px);
   /* transition separada para reveal: no interfiere con el hover/active */
   transition: opacity  0.85s cubic-bezier(0.23, 1, 0.32, 1),
               transform 0.85s cubic-bezier(0.23, 1, 0.32, 1);
