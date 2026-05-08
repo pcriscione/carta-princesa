@@ -1103,14 +1103,14 @@
   background-position: 0px 0px, 0px 0px, 50% 50%, 0px 0px;
   background-image:
     radial-gradient(farthest-side circle at var(--pointer-x, 50%) var(--pointer-y, 50%),
-      hsla(266, 100%, 90%, var(--card-opacity, 0)) 4%,
-      hsla(266, 50%,  80%, calc(var(--card-opacity, 0) * 0.75)) 10%,
-      hsla(266, 25%,  70%, calc(var(--card-opacity, 0) * 0.50)) 50%,
-      hsla(266, 0%,   60%, 0) 100%
+      hsla(40, 100%, 80%, var(--card-opacity, 0)) 4%,
+      hsla(40, 70%,  65%, calc(var(--card-opacity, 0) * 0.75)) 10%,
+      hsla(40, 35%,  50%, calc(var(--card-opacity, 0) * 0.50)) 50%,
+      hsla(40, 0%,   40%, 0) 100%
     ),
-    radial-gradient(35% 52% at 55% 20%, #00FFAAC4 0%, #073AFF00 100%),
-    radial-gradient(100% 100% at 50% 50%, #00C1FFFF 1%, #073AFF00 76%),
-    conic-gradient(from 124deg at 50% 50%, #C137FFFF 0%, #07C6FFFF 40%, #07C6FFFF 60%, #C137FFFF 100%);
+    radial-gradient(35% 52% at 55% 20%, #C8962A99 0%, #0C080400 100%),
+    radial-gradient(100% 100% at 50% 50%, #E8A030CC 1%, #0C080400 76%),
+    conic-gradient(from 124deg at 50% 50%, #C8962AFF 0%, #F0D060FF 40%, #F0D060FF 60%, #C8962AFF 100%);
 }
 
 .holo-wrap.active::before {
@@ -1130,14 +1130,14 @@
   background-position: 0px 0px, 0px 0px, 50% 50%, 0px 0px;
   background-image:
     radial-gradient(farthest-side circle at var(--pointer-x, 50%) var(--pointer-y, 50%),
-      hsla(266, 100%, 90%, var(--card-opacity, 0)) 4%,
-      hsla(266, 50%,  80%, calc(var(--card-opacity, 0) * 0.75)) 10%,
-      hsla(266, 25%,  70%, calc(var(--card-opacity, 0) * 0.50)) 50%,
-      hsla(266, 0%,   60%, 0) 100%
+      hsla(40, 100%, 80%, var(--card-opacity, 0)) 4%,
+      hsla(40, 70%,  65%, calc(var(--card-opacity, 0) * 0.75)) 10%,
+      hsla(40, 35%,  50%, calc(var(--card-opacity, 0) * 0.50)) 50%,
+      hsla(40, 0%,   40%, 0) 100%
     ),
-    radial-gradient(35% 52% at 55% 20%, #00FFAAC4 0%, #073AFF00 100%),
-    radial-gradient(100% 100% at 50% 50%, #00C1FFFF 1%, #073AFF00 76%),
-    conic-gradient(from 124deg at 50% 50%, #C137FFFF 0%, #07C6FFFF 40%, #07C6FFFF 60%, #C137FFFF 100%);
+    radial-gradient(35% 52% at 55% 20%, #C8962A99 0%, #0C080400 100%),
+    radial-gradient(100% 100% at 50% 50%, #E8A030CC 1%, #0C080400 76%),
+    conic-gradient(from 124deg at 50% 50%, #C8962AFF 0%, #F0D060FF 40%, #F0D060FF 60%, #C8962AFF 100%);
   background-blend-mode: color-dodge, normal, normal, normal;
   box-shadow:
     rgba(0,0,0,0.8)
