@@ -38,7 +38,7 @@ function crearInstancia(canvas) {
   let targetHue  = 40;
 
   // ── PARTÍCULAS ────────────────────────────────────────────────────────────
-  const NUM_PARTICLES = 28;
+  const NUM_PARTICLES = 55;
   const particles = [];
 
   for (let i = 0; i < NUM_PARTICLES; i++) {
@@ -47,17 +47,17 @@ function crearInstancia(canvas) {
 
   function nuevaParticula(w, h, x, y) {
     const angle = Math.random() * Math.PI * 2;
-    const speed = 0.18 + Math.random() * 0.32;
+    const speed = 0.22 + Math.random() * 0.45;
     return {
       x: x ?? Math.random() * w,
       y: y ?? Math.random() * h,
       vx: Math.cos(angle) * speed,
       vy: Math.sin(angle) * speed,
-      size: 0.8 + Math.random() * 1.6,
-      alpha: 0.18 + Math.random() * 0.45,
+      size: 1.4 + Math.random() * 2.8,
+      alpha: 0.38 + Math.random() * 0.52,
       alphaDir: Math.random() > 0.5 ? 1 : -1,
-      alphaSpeed: 0.003 + Math.random() * 0.005,
-      hueOffset: (Math.random() - 0.5) * 30,
+      alphaSpeed: 0.005 + Math.random() * 0.008,
+      hueOffset: (Math.random() - 0.5) * 40,
       life: 1,
       maxLife: 180 + Math.random() * 240,
       age: 0,
@@ -65,7 +65,7 @@ function crearInstancia(canvas) {
   }
 
   // ── LÍNEAS ────────────────────────────────────────────────────────────────
-  const NUM_LINES = 5;
+  const NUM_LINES = 10;
   const lines = [];
 
   for (let i = 0; i < NUM_LINES; i++) {
@@ -76,13 +76,13 @@ function crearInstancia(canvas) {
     return {
       x: Math.random() * w,
       y: Math.random() * h,
-      length: 40 + Math.random() * 80,
+      length: 60 + Math.random() * 120,
       angle: Math.random() * Math.PI * 2,
-      speed: 0.003 + Math.random() * 0.006,
-      waveAmp: 6 + Math.random() * 12,
+      speed: 0.004 + Math.random() * 0.007,
+      waveAmp: 14 + Math.random() * 22,
       waveFreq: 0.04 + Math.random() * 0.04,
       waveOffset: Math.random() * Math.PI * 2,
-      alpha: 0.08 + Math.random() * 0.14,
+      alpha: 0.18 + Math.random() * 0.28,
       hueOffset: (Math.random() - 0.5) * 40,
     };
   }
@@ -178,7 +178,7 @@ function crearInstancia(canvas) {
       ctx.save();
       ctx.globalAlpha = l.alpha;
       ctx.strokeStyle = `hsl(${currentHue + l.hueOffset}, 85%, 60%)`;
-      ctx.lineWidth = 0.8;
+      ctx.lineWidth = 1.4;
       ctx.beginPath();
       const steps = 20;
       for (let i = 0; i <= steps; i++) {
@@ -309,7 +309,7 @@ function crearInstancia(canvas) {
 
       // Pulso de alpha
       p.alpha += p.alphaDir * p.alphaSpeed;
-      if (p.alpha > 0.65 || p.alpha < 0.05) p.alphaDir *= -1;
+      if (p.alpha > 0.88 || p.alpha < 0.12) p.alphaDir *= -1;
 
       // Wrap en bordes
       if (p.x < -4) p.x = W + 4;
