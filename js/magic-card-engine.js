@@ -53,10 +53,10 @@ function crearInstancia(canvas) {
       y: y ?? Math.random() * h,
       vx: Math.cos(angle) * speed,
       vy: Math.sin(angle) * speed,
-      size: 1.4 + Math.random() * 2.8,
-      alpha: 0.38 + Math.random() * 0.52,
+      size: 1.8 + Math.random() * 3.4,
+      alpha: 0.55 + Math.random() * 0.40,
       alphaDir: Math.random() > 0.5 ? 1 : -1,
-      alphaSpeed: 0.005 + Math.random() * 0.008,
+      alphaSpeed: 0.006 + Math.random() * 0.009,
       hueOffset: (Math.random() - 0.5) * 40,
       life: 1,
       maxLife: 180 + Math.random() * 240,
@@ -82,7 +82,7 @@ function crearInstancia(canvas) {
       waveAmp: 14 + Math.random() * 22,
       waveFreq: 0.04 + Math.random() * 0.04,
       waveOffset: Math.random() * Math.PI * 2,
-      alpha: 0.18 + Math.random() * 0.28,
+      alpha: 0.30 + Math.random() * 0.38,
       hueOffset: (Math.random() - 0.5) * 40,
     };
   }
@@ -178,7 +178,7 @@ function crearInstancia(canvas) {
       ctx.save();
       ctx.globalAlpha = l.alpha;
       ctx.strokeStyle = `hsl(${currentHue + l.hueOffset}, 85%, 60%)`;
-      ctx.lineWidth = 1.4;
+      ctx.lineWidth = 2.0;
       ctx.beginPath();
       const steps = 20;
       for (let i = 0; i <= steps; i++) {
@@ -197,7 +197,9 @@ function crearInstancia(canvas) {
     particles.forEach(p => {
       ctx.save();
       ctx.globalAlpha = p.alpha * (1 - p.age / p.maxLife);
-      ctx.fillStyle = `hsl(${currentHue + p.hueOffset}, 80%, 70%)`;
+      ctx.shadowColor = `hsl(${currentHue + p.hueOffset}, 90%, 70%)`;
+      ctx.shadowBlur = p.size * 3;
+      ctx.fillStyle = `hsl(${currentHue + p.hueOffset}, 85%, 75%)`;
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
       ctx.fill();
@@ -309,7 +311,7 @@ function crearInstancia(canvas) {
 
       // Pulso de alpha
       p.alpha += p.alphaDir * p.alphaSpeed;
-      if (p.alpha > 0.88 || p.alpha < 0.12) p.alphaDir *= -1;
+      if (p.alpha > 0.96 || p.alpha < 0.30) p.alphaDir *= -1;
 
       // Wrap en bordes
       if (p.x < -4) p.x = W + 4;
