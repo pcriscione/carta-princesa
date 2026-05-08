@@ -42,6 +42,7 @@ document.addEventListener('click', e => {
   if (!card) return;
   if (card.classList.contains('block-large-card')) return;
   if (card.classList.contains('block-flare-card')) return;
+  if (card.classList.contains('block-magic-card')) return;
   abrirModal(card.dataset.itemId);
 });
 

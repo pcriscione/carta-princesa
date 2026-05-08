@@ -82,11 +82,30 @@ async function arrancar() {
   }
 }
 
-// Flip para large_card
+// Flip para large_card (cualquier zona de la tarjeta)
 document.addEventListener('click', e => {
   const card = e.target.closest('.block-large-card[data-item-id]');
   if (!card) return;
   card.classList.toggle('flipped');
+});
+
+// Flip para magic_card — solo la estrella abre el reverso
+document.addEventListener('click', e => {
+  // Estrella → mostrar reverso
+  const star = e.target.closest('.star-shimmer');
+  if (star) {
+    e.stopPropagation();
+    const card = star.closest('.block-magic-card');
+    if (card) card.classList.add('flipped');
+    return;
+  }
+  // Click en el reverso → volver al frente
+  const back = e.target.closest('.mc-back');
+  if (back) {
+    e.stopPropagation();
+    const card = back.closest('.block-magic-card');
+    if (card) card.classList.remove('flipped');
+  }
 });
 
 
