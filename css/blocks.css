@@ -65,7 +65,7 @@
   height: 100%;
   object-fit: cover;
   display: block;
-  filter: sepia(15%) contrast(1.05) brightness(0.9);
+  filter: sepia(8%) contrast(1.02) brightness(1.0);
   transition: transform 0.5s ease;
   -webkit-transform: translateZ(0);
   transform: translateZ(0);
@@ -82,7 +82,7 @@
   background: linear-gradient(
     180deg,
     rgba(12,10,6,0.0) 35%,
-    rgba(12,10,6,0.85) 100%
+    rgba(12,10,6,0.62) 100%
   );
   pointer-events: none;
 }
@@ -527,7 +527,7 @@
   background: linear-gradient(
     180deg,
     rgba(12,10,6,0.0) 25%,
-    rgba(12,10,6,0.9) 100%
+    rgba(12,10,6,0.68) 100%
   );
   border-radius: var(--radius-lg);
 }
@@ -706,7 +706,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: sepia(12%) contrast(1.08) brightness(0.8);
+  filter: sepia(6%) contrast(1.04) brightness(0.95);
   transform: scale(1.06);
   transition: transform 0.5s ease;
 }
@@ -757,8 +757,8 @@
   background: linear-gradient(
     180deg,
     rgba(12,10,6,0.0) 18%,
-    rgba(12,10,6,0.48) 52%,
-    rgba(12,10,6,0.96) 100%
+    rgba(12,10,6,0.36) 52%,
+    rgba(12,10,6,0.74) 100%
   );
 }
 
@@ -915,7 +915,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: sepia(15%) contrast(1.05) brightness(0.85);
+  filter: sepia(8%) contrast(1.02) brightness(1.0);
   transform: scale(1.08);
   transition: transform 0.5s ease; /* base hover */
 }
@@ -954,9 +954,9 @@
   pointer-events: none;
   background: linear-gradient(
     175deg,
-    rgba(12,10,6,0.08) 0%,
-    rgba(12,10,6,0.45) 40%,
-    rgba(12,10,6,0.92) 100%
+    rgba(12,10,6,0.04) 0%,
+    rgba(12,10,6,0.30) 40%,
+    rgba(12,10,6,0.70) 100%
   );
 }
 
