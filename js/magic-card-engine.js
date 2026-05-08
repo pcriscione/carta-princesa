@@ -53,10 +53,10 @@ function crearInstancia(canvas) {
       y: y ?? Math.random() * h,
       vx: Math.cos(angle) * speed,
       vy: Math.sin(angle) * speed,
-      size: 1.8 + Math.random() * 3.4,
-      alpha: 0.55 + Math.random() * 0.40,
+      size: 1.6 + Math.random() * 3.1,
+      alpha: 0.46 + Math.random() * 0.46,
       alphaDir: Math.random() > 0.5 ? 1 : -1,
-      alphaSpeed: 0.006 + Math.random() * 0.009,
+      alphaSpeed: 0.005 + Math.random() * 0.008,
       hueOffset: (Math.random() - 0.5) * 40,
       life: 1,
       maxLife: 180 + Math.random() * 240,
@@ -82,7 +82,7 @@ function crearInstancia(canvas) {
       waveAmp: 14 + Math.random() * 22,
       waveFreq: 0.04 + Math.random() * 0.04,
       waveOffset: Math.random() * Math.PI * 2,
-      alpha: 0.30 + Math.random() * 0.38,
+      alpha: 0.24 + Math.random() * 0.33,
       hueOffset: (Math.random() - 0.5) * 40,
     };
   }
@@ -178,7 +178,7 @@ function crearInstancia(canvas) {
       ctx.save();
       ctx.globalAlpha = l.alpha;
       ctx.strokeStyle = `hsl(${currentHue + l.hueOffset}, 85%, 60%)`;
-      ctx.lineWidth = 2.0;
+      ctx.lineWidth = 1.7;
       ctx.beginPath();
       const steps = 20;
       for (let i = 0; i <= steps; i++) {
@@ -198,7 +198,7 @@ function crearInstancia(canvas) {
       ctx.save();
       ctx.globalAlpha = p.alpha * (1 - p.age / p.maxLife);
       ctx.shadowColor = `hsl(${currentHue + p.hueOffset}, 90%, 70%)`;
-      ctx.shadowBlur = p.size * 3;
+      ctx.shadowBlur = p.size * 1.8;
       ctx.fillStyle = `hsl(${currentHue + p.hueOffset}, 85%, 75%)`;
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
@@ -311,7 +311,7 @@ function crearInstancia(canvas) {
 
       // Pulso de alpha
       p.alpha += p.alphaDir * p.alphaSpeed;
-      if (p.alpha > 0.96 || p.alpha < 0.30) p.alphaDir *= -1;
+      if (p.alpha > 0.92 || p.alpha < 0.20) p.alphaDir *= -1;
 
       // Wrap en bordes
       if (p.x < -4) p.x = W + 4;
