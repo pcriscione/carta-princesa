@@ -1063,6 +1063,37 @@
 }
 
 /* ══════════════════════════════════════
+   MAGIC CARD  (canvas encantado, ancho completo)
+   Partículas · líneas · glow · bursts al tocar
+   ══════════════════════════════════════ */
+
+.block-magic-card {
+  height: 260px;
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+  /* Borde dorado sutil que pulsa */
+  box-shadow: 0 0 0 1px rgba(200, 150, 42, 0.25),
+              0 12px 32px rgba(0, 0, 0, 0.7);
+  cursor: pointer;
+}
+
+.block-magic-card:active {
+  /* Anulamos el transform base que usa rotate; shake lo gestiona el engine */
+  transform: scale(1.01) !important;
+  box-shadow: 0 0 0 1.5px rgba(200, 150, 42, 0.55),
+              0 20px 48px rgba(0, 0, 0, 0.85) !important;
+}
+
+.magic-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  /* Garantiza capa propia en iOS para no bloquear autoplay de video */
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+
+/* ══════════════════════════════════════
    LABEL DE TIPO DE BLOQUE (dev preview)
    ══════════════════════════════════════ */
 

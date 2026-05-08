@@ -1,9 +1,10 @@
 const MOCK_DATA = {
   secciones: [
-    { id: 's1', name: 'Piqueos',  slug: 'piqueos',  sort_order: 1, is_active: true },
-    { id: 's2', name: 'Entradas', slug: 'entradas', sort_order: 2, is_active: true },
-    { id: 's3', name: 'Fondos',   slug: 'fondos',   sort_order: 3, is_active: true },
-    { id: 's4', name: 'Cócteles', slug: 'cocteles', sort_order: 4, is_active: true },
+    { id: 's1', name: 'Piqueos',        slug: 'piqueos',   sort_order: 1, is_active: true },
+    { id: 's2', name: 'Entradas',       slug: 'entradas',  sort_order: 2, is_active: true },
+    { id: 's3', name: 'Fondos',         slug: 'fondos',    sort_order: 3, is_active: true },
+    { id: 's4', name: 'Cócteles',       slug: 'cocteles',  sort_order: 4, is_active: true },
+    { id: 's5', name: 'Menú Infantil',  slug: 'infantil',  sort_order: 5, is_active: true },
   ],
   blocks: [
     // Piqueos
@@ -24,5 +25,9 @@ const MOCK_DATA = {
     // Cócteles
     { id:'b9',  section_id:'s4', item_id:'i9',  block_type:'hero_video',        sort_order:1, badge_text:'Ícono',     title_override:null, subtitle_override:'El clásico peruano de autor',    is_active:true, item:{ id:'i9',  name:'Pisco Sour',       price:8500,  description:'Pisco quebranta, limón de pica, jarabe de goma y clara.',                           image_url:'https://images.unsplash.com/photo-1470337458703-46ad1756a187?w=600&q=85', video_url:null, tags:['Pisco'],            alergenos:['huevo'],             calorias:null, disponible_desde:'18:00:00', disponible_hasta:'23:59:00' }},
     { id:'b10', section_id:'s4', item_id:'i10', block_type:'small_card',        sort_order:2, badge_text:'Nuevo',     title_override:null, subtitle_override:null,                              is_active:true, item:{ id:'i10', name:'Maracuyá Sour',    price:8900,  description:'Pisco con maracuyá fresco y espuma de clara.',                                      image_url:'https://images.unsplash.com/photo-1544145945-f90425340c7e?w=400&q=85', video_url:null, tags:[],                   alergenos:['huevo'],             calorias:null, disponible_desde:'18:00:00', disponible_hasta:'23:59:00' }},
+    // Menú Infantil — magic cards
+    { id:'b13', section_id:'s5', item_id:'i13', block_type:'magic_card', sort_order:1, badge_text:'★ Favorito', title_override:null, subtitle_override:null, is_active:true, item:{ id:'i13', name:'Mini Hamburguesita', price:7900, description:'Hamburguesa de carne con queso, lechuga y papas fritas.', image_url:'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&q=85', video_url:null, tags:['Kids'], alergenos:['gluten','lácteos'], calorias:480, disponible_desde:null, disponible_hasta:null }},
+    { id:'b14', section_id:'s5', item_id:'i14', block_type:'magic_card', sort_order:2, badge_text:'🍗 Especial', title_override:null, subtitle_override:null, is_active:true, item:{ id:'i14', name:'Nuggets Mágicos',    price:6900, description:'Nuggets de pollo crocante con dip de miel-mostaza y papas.', image_url:'https://images.unsplash.com/photo-1562967914-608f82629710?w=600&q=85', video_url:null, tags:['Kids'], alergenos:['gluten'],           calorias:390, disponible_desde:null, disponible_hasta:null }},
+    { id:'b15', section_id:'s5', item_id:'i15', block_type:'magic_card', sort_order:3, badge_text:null,         title_override:'Tallarin de la Abuela', subtitle_override:null, is_active:true, item:{ id:'i15', name:'Tallarín Saltado', price:8900, description:'Tallarines salteados al wok con pollo, verduras y salsa de soya.', image_url:'https://images.unsplash.com/photo-1555949258-eb67b1ef0ceb?w=600&q=85', video_url:null, tags:['Kids','Sin mariscos'], alergenos:['gluten','soya'], calorias:510, disponible_desde:null, disponible_hasta:null }},
   ]
 };

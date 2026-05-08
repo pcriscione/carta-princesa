@@ -73,6 +73,9 @@ async function arrancar() {
   // 8. Iniciar flare cards
   initFlareCards();
 
+  // 9. Iniciar magic cards (canvas engine)
+  iniciarMagicCards(contenedor);
+
   // 7. Si los datos vienen de cache (Supabase falló pero había cache), avisar
   if (!USE_MOCK && datos._desdeCache) {
     mostrarToast('Sin conexión — carta en modo offline');
