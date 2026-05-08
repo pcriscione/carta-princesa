@@ -10,6 +10,7 @@ const BLOCK_COMPONENTS = {
   cinematic_card:    renderCinematicCard,
   flare_card:        renderFlareCard,
   magic_card:        renderMagicCard,
+  holo_card:         renderHoloCard,
 };
 
 // Contadores por sección para rotaciones e índices de altura

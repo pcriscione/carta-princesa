@@ -76,6 +76,9 @@ async function arrancar() {
   // 9. Iniciar magic cards (canvas engine)
   iniciarMagicCards(contenedor);
 
+  // 10. Iniciar holo cards (tilt + shine)
+  iniciarHoloCards(contenedor);
+
   // 7. Si los datos vienen de cache (Supabase falló pero había cache), avisar
   if (!USE_MOCK && datos._desdeCache) {
     mostrarToast('Sin conexión — carta en modo offline');
