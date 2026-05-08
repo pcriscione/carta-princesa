@@ -82,7 +82,7 @@ function crearInstancia(canvas) {
       waveAmp: 14 + Math.random() * 22,
       waveFreq: 0.04 + Math.random() * 0.04,
       waveOffset: Math.random() * Math.PI * 2,
-      alpha: 0.24 + Math.random() * 0.33,
+      alpha: 0.07 + Math.random() * 0.11,
       hueOffset: (Math.random() - 0.5) * 40,
     };
   }
@@ -178,7 +178,7 @@ function crearInstancia(canvas) {
       ctx.save();
       ctx.globalAlpha = l.alpha;
       ctx.strokeStyle = `hsl(${currentHue + l.hueOffset}, 85%, 60%)`;
-      ctx.lineWidth = 1.7;
+      ctx.lineWidth = 0.9;
       ctx.beginPath();
       const steps = 20;
       for (let i = 0; i <= steps; i++) {
