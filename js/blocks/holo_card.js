@@ -8,7 +8,7 @@ function renderHoloCard(block, idx = 0) {
     : '';
 
   return `
-    <div class="block-card block-holo-card block--half"
+    <div class="block-card block-holo-card block--full"
          data-item-id="${item.id}"
          data-block-type="holo_card"
          role="button" tabindex="0"
