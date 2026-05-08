@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300;1,500&family=Bebas+Neue&family=DM+Sans:wght@300;400&display=swap');
 
-/* ── TEMA OSCURO (original — descomentar para volver)
 :root {
+  /* Colores */
   --ink:        #0C0A06;
   --paper:      #F0E8D8;
   --gold:       #C8962A;
@@ -9,23 +9,6 @@
   --card-bg:    #181008;
   --border:     #2A1A06;
   --shadow:     rgba(0,0,0,0.75);
-}
-body {
-  background-color: #100C06;
-  background-image: url("data:image/svg+xml,...grain...");
-  color: var(--paper);
-}
-── */
-
-:root {
-  /* Colores — TEMA CLARO (prueba) */
-  --ink:        #1A1209;
-  --paper:      #2A1A08;
-  --gold:       #A06B10;
-  --gold-dim:   #C8962A;
-  --card-bg:    #F5F0E8;
-  --border:     #E0D5C0;
-  --shadow:     rgba(0,0,0,0.12);
 
   /* Tipografía */
   --font-title: 'Cormorant Garamond', serif;
@@ -62,9 +45,9 @@ html {
 }
 
 body {
-  background-color: #FDFAF5;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-  color: var(--ink);
+  background-color: #100C06;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+  color: var(--paper);
   font-family: var(--font-body);
   min-height: 100vh;
   overflow-x: hidden;
