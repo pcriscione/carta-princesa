@@ -29,7 +29,7 @@ function iniciarScrollReveal(contenedor) {
     visibles.forEach((entry, batchIdx) => {
       const card = entry.target;
       // Stagger: 60ms entre cada tarjeta del mismo batch visible
-      const delay = reducida ? 0 : batchIdx * 60;
+      const delay = reducida ? 0 : batchIdx * 110;
       card.style.transitionDelay = `${delay}ms`;
 
       // Un frame de margen para que el delay se registre antes de la clase
@@ -39,7 +39,7 @@ function iniciarScrollReveal(contenedor) {
         // con interacciones posteriores (hover, etc.)
         setTimeout(() => {
           card.style.transitionDelay = '';
-        }, (reducida ? 150 : 600) + delay);
+        }, (reducida ? 150 : 900) + delay);
       });
 
       _revealObserver.unobserve(card);
