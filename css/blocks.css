@@ -354,6 +354,8 @@
 
 .lc-front {
   overflow: hidden;
+  transform: rotateY(0deg);          /* ubica la cara en 3D para que backface-visibility funcione */
+  -webkit-transform: rotateY(0deg);
 }
 
 .lc-back {
