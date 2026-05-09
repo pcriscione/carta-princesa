@@ -1386,7 +1386,7 @@
    ══════════════════════════════════════ */
 
 .block-clash-card {
-  margin-top: 150px;
+  margin-top: 120px;
   overflow: visible !important;
   background: transparent;
   border: none;
@@ -1420,7 +1420,7 @@
 /* ── Imagen ancho pantalla flotando sobre la tarjeta dorada ── */
 .cc2-img {
   position: absolute !important;
-  top: -150px !important;
+  top: -120px !important;
   left: 50% !important;
   width: 100% !important;
   height: auto !important;
