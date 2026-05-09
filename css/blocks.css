@@ -1411,10 +1411,9 @@
   position: relative;
 }
 
-/* ── Zona superior: fondo cálido oscuro ── */
+/* ── Zona superior: sin fondo propio — imagen flota directo sobre el cuerpo ── */
 .cc2-bg-zone {
-  height: 160px;              /* cubre la mitad inferior de la imagen */
-  background: #F5EFE0;        /* igual al cuerpo → sin franja visible */
+  display: none;
 }
 
 /* ── Imagen circular — más ancha que la tarjeta, flota arriba ── */
