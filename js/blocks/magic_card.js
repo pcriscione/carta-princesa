@@ -15,9 +15,7 @@ function renderMagicCard(block, idx = 0) {
     ? `<div class="mc-back-cal">${item.calorias} kcal</div>`
     : '';
 
-  const starSvg = `<svg width="22" height="22" viewBox="0 0 51 48" xmlns="http://www.w3.org/2000/svg">
-    <path fill="#c9a84c" d="M25.5 3 31.9 18.4 48.6 19.9 36.5 30.6 40.1 47 25.5 38.5 10.9 47 14.5 30.6 2.4 19.9 19.1 18.4Z"/>
-  </svg>`;
+  const starSvg = `<img src="assets/corona.png" width="36" height="36" alt="corona" style="display:block;">`;
 
   return `
     <div class="block-card block-magic-card block--full"
