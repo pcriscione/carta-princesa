@@ -1414,7 +1414,7 @@
 /* ── Zona superior: fondo cálido oscuro ── */
 .cc2-bg-zone {
   height: 160px;              /* cubre la mitad inferior de la imagen */
-  background: var(--gold);
+  background: #F5EFE0;        /* igual al cuerpo → sin franja visible */
 }
 
 /* ── Imagen circular — más ancha que la tarjeta, flota arriba ── */
