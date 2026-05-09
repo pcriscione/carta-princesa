@@ -1068,7 +1068,7 @@
    ══════════════════════════════════════ */
 
 .block-holo-card {
-  aspect-ratio: 0.718;      /* proporción trading card */
+  aspect-ratio: 1 / 1;      /* cuadrada */
   background: transparent;
   border: none;
   box-shadow: none;
