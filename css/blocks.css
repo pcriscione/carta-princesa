@@ -1388,9 +1388,10 @@
 .block-clash-card {
   margin-top: 0;
   overflow: visible !important;
-  background: transparent;
+  background: var(--gold);
   border: none;
   box-shadow: none;
+  border-radius: 0;
   cursor: pointer;
 }
 
@@ -1413,8 +1414,7 @@
 
 /* ── Zona superior dorada ── */
 .cc2-bg-zone {
-  height: 20px;
-  background: var(--gold);
+  display: none;
 }
 
 /* ── Imagen ancho completo ── */
