@@ -1428,8 +1428,7 @@
   object-fit: cover;
   z-index: 10;
   pointer-events: none;
-  box-shadow: 0 16px 48px rgba(0,0,0,0.75),
-              0 0 0 8px var(--gold);  /* fusiona el borde del círculo con el fondo dorado */
+  box-shadow: 0 16px 48px rgba(0,0,0,0.75);
   filter: contrast(1.06) saturate(1.12);
   opacity: 0;
   transform: translateX(-50%) translateY(16px) scale(0.80);
