@@ -1386,7 +1386,7 @@
    ══════════════════════════════════════ */
 
 .block-clash-card {
-  margin-top: 160px;          /* mitad superior de la imagen flota aquí */
+  margin-top: 0;
   overflow: visible !important;
   background: transparent;
   border: none;
@@ -1413,25 +1413,23 @@
 
 /* ── Zona superior dorada ── */
 .cc2-bg-zone {
-  height: 160px;
-  background: var(--gold);
+  display: none;
 }
 
-/* ── Imagen circular — más ancha que la tarjeta, flota arriba ── */
+/* ── Imagen ancho completo ── */
 .cc2-img {
-  position: absolute;
-  top: -160px;               /* mitad superior fuera de la tarjeta */
-  left: 50%;
-  width: 88%;                /* más ancho que cc2-inner (68%) → desborda ~35px c/lado */
-  aspect-ratio: 1;
-  border-radius: 50%;
-  object-fit: cover;
+  position: relative !important;
+  width: 100% !important;
+  height: auto !important;
+  aspect-ratio: unset !important;
+  border-radius: 0 !important;
+  object-fit: unset !important;
   z-index: 10;
   pointer-events: none;
   box-shadow: none;
   filter: contrast(1.06) saturate(1.12);
   opacity: 0;
-  transform: translateX(-50%) translateY(16px) scale(0.80);
+  transform: translateY(16px) scale(0.80);
   transition:
     opacity  0.42s ease                              0.48s,
     transform 0.62s cubic-bezier(0.34, 1.56, 0.64, 1) 0.48s;
@@ -1439,7 +1437,7 @@
 
 .block-clash-card.revealed .cc2-img {
   opacity: 1;
-  transform: translateX(-50%) translateY(0) scale(1);
+  transform: translateY(0) scale(1);
 }
 
 /* ── Cuerpo de texto (fondo claro cálido) ── */
