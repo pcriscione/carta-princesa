@@ -23,9 +23,6 @@ function renderHoloCard(block, idx = 0) {
             <div class="holo-name">${escHtml(nombre)}</div>
             <div class="holo-price">${escHtml(precio)}</div>
           </div>
-          <span class="star-shimmer" aria-hidden="true">
-            <img src="./assets/corona.png" alt="corona" style="display:block;width:36px;height:36px;">
-          </span>
         </div>
       </div>
       ${badge_text ? `<span class="card-badge" style="z-index:10">${escHtml(badge_text)}</span>` : ''}
