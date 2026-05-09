@@ -20,7 +20,6 @@ function crearInstancia(canvas) {
   let bgImage = null;
   if (imgSrc) {
     const img = new Image();
-    img.crossOrigin = 'anonymous';
     img.onload = () => { bgImage = img; };
     img.src = imgSrc;
   }
