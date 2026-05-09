@@ -328,6 +328,8 @@
 .block-large-card {
   height: 240px;
   overflow: visible; /* necesario para el flip 3D */
+  box-shadow: 0 0 0 1px rgba(200, 150, 42, 0.40),
+              0 8px 24px rgba(0,0,0,0.6);
   perspective: 800px;
 }
 
