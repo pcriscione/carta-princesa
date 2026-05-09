@@ -18,6 +18,7 @@ function renderHoloCard(block, idx = 0) {
           <div class="holo-inside"></div>
           <div class="holo-img-wrap">${imgHtml}</div>
           <div class="holo-shine"></div>
+          <div class="holo-corona"></div>
           <div class="holo-glare"></div>
           <div class="holo-content">
             <div class="holo-name">${escHtml(nombre)}</div>

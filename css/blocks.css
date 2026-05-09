@@ -1279,8 +1279,8 @@
       hsl(0, 0%, 70%) 0%,
       hsla(0, 0%, 30%, 0.2) 90%
     ),
-    url(./assets/corona.png);
-  background-size: 250% 250%, 100% 100%, 70px 70px;
+    url(https://assets.codepen.io/13471/grain.webp);
+  background-size: 250% 250%, 100% 100%, 220px 220px;
   background-position:
     var(--pointer-x, 50%) var(--pointer-y, 50%),
     center center,
@@ -1338,6 +1338,29 @@
   mix-blend-mode: overlay;
   filter: brightness(0.8) contrast(1.2);
   z-index: 4;
+}
+
+/* ── Corona holográfica (patrón repetido de la marca) ── */
+.holo-corona {
+  position: absolute !important;
+  inset: 0;
+  z-index: 3;
+  background-image: url(./assets/corona.png);
+  background-size: 72px 72px;
+  background-repeat: repeat;
+  background-position:
+    calc(var(--background-x, 50%) * 0.3)
+    calc(var(--background-y, 50%) * 0.3);
+  mix-blend-mode: screen;
+  opacity: 0;
+  filter: brightness(1.4) saturate(1.2);
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  border-radius: var(--radius-sm);
+}
+
+.holo-inner.active .holo-corona {
+  opacity: 0.55;
 }
 
 /* ── Contenido con parallax sutil ── */
