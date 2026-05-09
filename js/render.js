@@ -11,6 +11,7 @@ const BLOCK_COMPONENTS = {
   flare_card:        renderFlareCard,
   magic_card:        renderMagicCard,
   holo_card:         renderHoloCard,
+  clash_card:        renderClashCard,
 };
 
 // Contadores por sección para rotaciones e índices de altura
