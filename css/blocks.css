@@ -1411,9 +1411,10 @@
   position: relative;
 }
 
-/* ── Zona superior: sin fondo propio — imagen flota directo sobre el cuerpo ── */
+/* ── Zona superior dorada ── */
 .cc2-bg-zone {
-  display: none;
+  height: 160px;
+  background: var(--gold);
 }
 
 /* ── Imagen circular — más ancha que la tarjeta, flota arriba ── */
@@ -1427,7 +1428,8 @@
   object-fit: cover;
   z-index: 10;
   pointer-events: none;
-  box-shadow: 0 16px 48px rgba(0,0,0,0.75);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.75),
+              0 0 0 8px var(--gold);  /* fusiona el borde del círculo con el fondo dorado */
   filter: contrast(1.06) saturate(1.12);
   opacity: 0;
   transform: translateX(-50%) translateY(16px) scale(0.80);
