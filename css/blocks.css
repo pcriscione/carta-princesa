@@ -1386,7 +1386,7 @@
    ══════════════════════════════════════ */
 
 .block-clash-card {
-  margin-top: 120px;          /* espacio para la imagen que sobresale */
+  margin-top: 160px;          /* mitad superior de la imagen flota aquí */
   overflow: visible !important;
   background: transparent;
   border: none;
@@ -1399,28 +1399,30 @@
   box-shadow: none !important;
 }
 
-/* ── Inner: clip de bordes y sombra ── */
+/* ── Inner: tarjeta angosta centrada ── */
 .cc2-inner {
+  width: 68%;
+  margin: 0 auto;
   border-radius: var(--radius-sm);
   overflow: hidden;
-  box-shadow: 0 -1px 0 rgba(200,150,42,0.15),
-              0 12px 40px rgba(0,0,0,0.75),
-              0 2px 8px rgba(0,0,0,0.4);
+  box-shadow: 0 12px 44px rgba(0,0,0,0.80),
+              0 2px 8px rgba(0,0,0,0.45),
+              0 -1px 0 rgba(200,150,42,0.12);
   position: relative;
 }
 
 /* ── Zona superior: fondo cálido oscuro ── */
 .cc2-bg-zone {
-  height: 145px;
+  height: 160px;              /* cubre la mitad inferior de la imagen */
   background: linear-gradient(160deg, #2E1A06 0%, #4A2E10 55%, #1C0E03 100%);
 }
 
-/* ── Imagen circular del plato — sobresale arriba ── */
+/* ── Imagen circular — más ancha que la tarjeta, flota arriba ── */
 .cc2-img {
   position: absolute;
-  top: -108px;               /* sobresale ~108px sobre la tarjeta */
+  top: -160px;               /* mitad superior fuera de la tarjeta */
   left: 50%;
-  width: 72%;                /* grande: ~250px en un móvil de 375px */
+  width: 88%;                /* más ancho que cc2-inner (68%) → desborda ~35px c/lado */
   aspect-ratio: 1;
   border-radius: 50%;
   object-fit: cover;
@@ -1428,20 +1430,18 @@
   pointer-events: none;
   border: 5px solid #F5EFE0;
   box-shadow: 0 16px 48px rgba(0,0,0,0.75),
-              0 0 0 1px rgba(200,150,42,0.30),
-              0 4px 16px rgba(200,150,42,0.20);
+              0 0 0 1px rgba(200,150,42,0.30);
   filter: contrast(1.06) saturate(1.12);
-  /* Entrada: escala + opacidad con rebote */
   opacity: 0;
-  transform: translateX(-50%) scale(0.72);
+  transform: translateX(-50%) translateY(16px) scale(0.80);
   transition:
-    opacity  0.45s ease         0.50s,
-    transform 0.60s cubic-bezier(0.34, 1.56, 0.64, 1) 0.50s;
+    opacity  0.42s ease                              0.48s,
+    transform 0.62s cubic-bezier(0.34, 1.56, 0.64, 1) 0.48s;
 }
 
 .block-clash-card.revealed .cc2-img {
   opacity: 1;
-  transform: translateX(-50%) scale(1);
+  transform: translateX(-50%) translateY(0) scale(1);
 }
 
 /* ── Cuerpo de texto (fondo claro cálido) ── */
