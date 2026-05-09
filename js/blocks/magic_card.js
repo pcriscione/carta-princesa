@@ -15,7 +15,7 @@ function renderMagicCard(block, idx = 0) {
     ? `<div class="mc-back-cal">${item.calorias} kcal</div>`
     : '';
 
-  const starSvg = `<img src="assets/corona.png" width="36" height="36" alt="corona" style="display:block;">`;
+  const starSvg = `<img src="assets/corona.png" width="18" height="18" alt="corona" style="display:block;">`;
 
   return `
     <div class="block-card block-magic-card block--full"
