@@ -69,25 +69,15 @@
   padding: 0 var(--pad) 5rem;
 }
 
-/* ── SECCIÓN (una a la vez) ── */
+/* ── SECCIÓN (one-page scroll) ── */
 .menu-container {
   position: relative;
 }
 
 .menu-section {
-  display: none;
-  margin-bottom: 2.5rem;
-}
-
-.menu-section.section-visible {
   display: block;
-}
-
-.menu-section.section-leaving {
-  display: block;
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  pointer-events: none;
+  margin-bottom: 3rem;
+  scroll-margin-top: 62px; /* altura del nav sticky */
 }
 
 /* Stagger manejado por scroll-reveal.js vía IntersectionObserver */
