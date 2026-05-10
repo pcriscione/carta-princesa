@@ -6,8 +6,9 @@ function renderSmallVideo(block, idx = 0) {
 
   const mediaHtml = item.video_url ? `
     <video class="sv-video" autoplay muted loop playsinline webkit-playsinline
-           preload="auto" aria-hidden="true"
-           src="${item.video_url}"></video>` : item.image_url
+           preload="auto" aria-hidden="true">
+      <source src="${item.video_url}" type="video/mp4">
+    </video>` : item.image_url
       ? `<img src="${item.image_url}" alt="${escHtml(nombre)}" loading="lazy">`
       : `<div class="card-placeholder"><span class="card-placeholder-name">${escHtml(nombre)}</span></div>`;
 
@@ -28,6 +29,20 @@ function renderSmallVideo(block, idx = 0) {
     </div>
   `;
 }
+
+// Fallback: arrancar todos los small videos al primer touch del usuario
+// (iOS Safari permite play() después de cualquier user gesture)
+let _userGestureFired = false;
+function _playAllVideosOnGesture() {
+  if (_userGestureFired) return;
+  _userGestureFired = true;
+  document.querySelectorAll('.block-small-video .sv-video').forEach(v => {
+    v.play().catch(() => {});
+  });
+}
+document.addEventListener('touchstart', _playAllVideosOnGesture, { once: true, passive: true });
+document.addEventListener('click',      _playAllVideosOnGesture, { once: true });
+document.addEventListener('scroll',     _playAllVideosOnGesture, { once: true, passive: true });
 
 // Forzar autoplay en iOS — propiedades por JS y play() en visibilidad
 function iniciarSmallVideos() {
