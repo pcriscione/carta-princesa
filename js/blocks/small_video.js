@@ -30,39 +30,38 @@ function renderSmallVideo(block, idx = 0) {
   `;
 }
 
-// Forzar autoplay en iOS — setear propiedades por JS y llamar play()
+// Forzar autoplay en iOS — llamar play() cuando la card se hace visible
 function iniciarSmallVideos() {
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      const video = entry.target.querySelector('.sv-video');
-      if (!video) return;
-      if (entry.isIntersecting) {
-        video.play().catch(() => {});
-      } else {
-        video.pause();
-      }
-    });
-  }, { threshold: 0.2 });
-
   document.querySelectorAll('.block-small-video').forEach(card => {
     const video = card.querySelector('.sv-video');
     if (!video) return;
 
-    // Propiedades críticas para iOS (más confiable que solo atributos HTML)
-    video.muted    = true;
-    video.loop     = true;
+    // Propiedades críticas para iOS
+    video.muted  = true;
+    video.loop   = true;
     video.setAttribute('playsinline', '');
     video.setAttribute('webkit-playsinline', '');
 
-    // Intentar play() en cuanto el video tenga datos suficientes
-    video.addEventListener('loadedmetadata', () => {
-      video.play().catch(() => {});
-    }, { once: true });
+    // Llamar play() cuando la card recibe la clase 'revealed' (scroll-reveal)
+    const mo = new MutationObserver(() => {
+      if (card.classList.contains('revealed')) {
+        mo.disconnect();
+        // Pequeño delay para que el browser procese la visibilidad
+        setTimeout(() => video.play().catch(() => {}), 100);
+      }
+    });
+    mo.observe(card, { attributes: true, attributeFilter: ['class'] });
 
-    video.addEventListener('canplay', () => {
-      video.play().catch(() => {});
-    }, { once: true });
-
-    observer.observe(card);
+    // Pausa/reanuda según visibilidad en scroll
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          video.play().catch(() => {});
+        } else {
+          video.pause();
+        }
+      });
+    }, { threshold: 0.2 });
+    io.observe(card);
   });
 }
