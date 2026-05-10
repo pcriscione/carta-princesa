@@ -52,7 +52,7 @@ function crearInstancia(canvas) {
       y: y ?? Math.random() * h,
       vx: Math.cos(angle) * speed,
       vy: Math.sin(angle) * speed,
-      size: 1.6 + Math.random() * 3.1,
+      size: 1.2 + Math.random() * 2.3,
       alpha: 0.46 + Math.random() * 0.46,
       alphaDir: Math.random() > 0.5 ? 1 : -1,
       alphaSpeed: 0.005 + Math.random() * 0.008,
