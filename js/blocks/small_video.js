@@ -33,6 +33,24 @@ function renderSmallVideo(block, idx = 0) {
   `;
 }
 
+// Forzar autoplay en iOS al entrar al viewport
+function iniciarSmallVideos() {
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      const video = entry.target.querySelector('.sv-video');
+      if (!video) return;
+      const card = entry.target;
+      if (entry.isIntersecting && !card.classList.contains('sv-show-img')) {
+        video.play().catch(() => {});
+      } else {
+        video.pause();
+      }
+    });
+  }, { threshold: 0.3 });
+
+  document.querySelectorAll('.block-small-video').forEach(card => observer.observe(card));
+}
+
 // Toggle video ↔ imagen al tocar
 document.addEventListener('click', e => {
   const card = e.target.closest('.block-small-video');
