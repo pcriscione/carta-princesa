@@ -91,14 +91,14 @@ function _renderContenido(item) {
   const media = document.getElementById('modal-media');
   const body  = document.getElementById('modal-body');
 
-  // Media
-  if (item.video_url) {
+  // Media: imagen primero, video como fallback si no hay imagen
+  if (item.image_url) {
+    media.innerHTML = `<img src="${item.image_url}" alt="${escHtml(item.name)}" loading="eager">`;
+  } else if (item.video_url) {
     media.innerHTML = `
       <video autoplay muted loop playsinline>
         <source src="${item.video_url}">
       </video>`;
-  } else if (item.image_url) {
-    media.innerHTML = `<img src="${item.image_url}" alt="${escHtml(item.name)}" loading="eager">`;
   } else {
     media.innerHTML = `
       <div class="modal-media-placeholder">

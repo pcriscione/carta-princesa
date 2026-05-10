@@ -4,15 +4,13 @@ function renderSmallVideo(block, idx = 0) {
   const rot    = ROTACIONES[idx % ROTACIONES.length];
   const precio = formatPrecio(item.price);
 
-  const videoHtml = item.video_url ? `
+  const mediaHtml = item.video_url ? `
     <video class="sv-video" autoplay muted loop playsinline webkit-playsinline
-           poster="${item.image_url || ''}" aria-hidden="true">
+           aria-hidden="true">
       <source src="${item.video_url}">
-    </video>` : '';
-
-  const imgHtml = item.image_url
-    ? `<img class="sv-img" src="${item.image_url}" alt="${escHtml(nombre)}" loading="lazy">`
-    : '';
+    </video>` : item.image_url
+      ? `<img src="${item.image_url}" alt="${escHtml(nombre)}" loading="lazy">`
+      : `<div class="card-placeholder"><span class="card-placeholder-name">${escHtml(nombre)}</span></div>`;
 
   return `
     <div class="block-card block-small-video block--half rotated"
@@ -21,8 +19,7 @@ function renderSmallVideo(block, idx = 0) {
          data-block-type="small_video"
          role="button" tabindex="0"
          aria-label="${escHtml(nombre)}">
-      ${videoHtml || imgHtml}
-      ${videoHtml ? imgHtml : ''}
+      ${mediaHtml}
       <div class="card-overlay"></div>
       ${badge_text ? `<span class="card-badge">${escHtml(badge_text)}</span>` : ''}
       <div class="card-text">
@@ -39,8 +36,7 @@ function iniciarSmallVideos() {
     entries.forEach(entry => {
       const video = entry.target.querySelector('.sv-video');
       if (!video) return;
-      const card = entry.target;
-      if (entry.isIntersecting && !card.classList.contains('sv-show-img')) {
+      if (entry.isIntersecting) {
         video.play().catch(() => {});
       } else {
         video.pause();
@@ -50,19 +46,3 @@ function iniciarSmallVideos() {
 
   document.querySelectorAll('.block-small-video').forEach(card => observer.observe(card));
 }
-
-// Toggle video ↔ imagen al tocar
-document.addEventListener('click', e => {
-  const card = e.target.closest('.block-small-video');
-  if (!card) return;
-  const video = card.querySelector('.sv-video');
-  const img   = card.querySelector('.sv-img');
-  if (!video || !img) return;
-  e.stopPropagation();
-  const showing = card.classList.toggle('sv-show-img');
-  if (showing) {
-    video.pause();
-  } else {
-    video.play().catch(() => {});
-  }
-});
