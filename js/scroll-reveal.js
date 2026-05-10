@@ -35,6 +35,10 @@ function iniciarScrollReveal(contenedor) {
       // Un frame de margen para que el delay se registre antes de la clase
       requestAnimationFrame(() => {
         card.classList.add('revealed');
+        // Si es flare card, garantizar que fc-visible también se agrega
+        if (card.classList.contains('block-flare-card')) {
+          card.classList.add('fc-visible');
+        }
         // Limpiar el delay inline tras la animación para no interferir
         // con interacciones posteriores (hover, etc.)
         setTimeout(() => {
