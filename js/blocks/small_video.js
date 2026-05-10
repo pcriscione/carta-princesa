@@ -30,7 +30,7 @@ function renderSmallVideo(block, idx = 0) {
   `;
 }
 
-// Forzar autoplay en iOS al entrar al viewport
+// Forzar autoplay en iOS — setear propiedades por JS y llamar play()
 function iniciarSmallVideos() {
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
@@ -42,7 +42,27 @@ function iniciarSmallVideos() {
         video.pause();
       }
     });
-  }, { threshold: 0.3 });
+  }, { threshold: 0.2 });
 
-  document.querySelectorAll('.block-small-video').forEach(card => observer.observe(card));
+  document.querySelectorAll('.block-small-video').forEach(card => {
+    const video = card.querySelector('.sv-video');
+    if (!video) return;
+
+    // Propiedades críticas para iOS (más confiable que solo atributos HTML)
+    video.muted    = true;
+    video.loop     = true;
+    video.setAttribute('playsinline', '');
+    video.setAttribute('webkit-playsinline', '');
+
+    // Intentar play() en cuanto el video tenga datos suficientes
+    video.addEventListener('loadedmetadata', () => {
+      video.play().catch(() => {});
+    }, { once: true });
+
+    video.addEventListener('canplay', () => {
+      video.play().catch(() => {});
+    }, { once: true });
+
+    observer.observe(card);
+  });
 }
