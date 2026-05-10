@@ -312,6 +312,19 @@
 
 .block-small-video {
   height: 180px;
+  border-color: transparent;
+  box-shadow: 0 0 18px 2px rgba(200, 150, 42, 0.25),
+              0 8px 24px rgba(0,0,0,0.6);
+}
+
+.block-small-video::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(200, 150, 42, 0.40);
+  border-radius: var(--radius-sm);
+  pointer-events: none;
+  z-index: 5;
 }
 
 .block-small-video video,
