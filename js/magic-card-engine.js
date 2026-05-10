@@ -263,7 +263,7 @@ function crearInstancia(canvas) {
 
     // Nombre
     ctx.save();
-    ctx.font = `300 ${Math.round(W * 0.072)}px 'Cormorant Garamond', serif`;
+    ctx.font = `400 ${Math.round(W * 0.072)}px 'Bodoni Moda', serif`;
     ctx.fillStyle = '#F0E8D8';
     ctx.shadowColor = 'rgba(0,0,0,0.8)';
     ctx.shadowBlur = 8;
