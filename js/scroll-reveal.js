@@ -16,7 +16,9 @@ function iniciarScrollReveal(contenedor) {
 
   // Marcar todas las cards para reveal (progressive enhancement:
   // si JS no corre, las cards son visibles por defecto)
+  // Excepción: small_video — iOS bloquea autoplay si parent tiene opacity:0
   contenedor.querySelectorAll('.block-card').forEach(card => {
+    if (card.classList.contains('block-small-video')) return;
     card.classList.add('will-reveal');
   });
 
@@ -54,6 +56,7 @@ function iniciarScrollReveal(contenedor) {
   });
 
   contenedor.querySelectorAll('.block-card').forEach(card => {
+    if (card.classList.contains('block-small-video')) return;
     _revealObserver.observe(card);
   });
 }

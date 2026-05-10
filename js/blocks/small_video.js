@@ -6,9 +6,8 @@ function renderSmallVideo(block, idx = 0) {
 
   const mediaHtml = item.video_url ? `
     <video class="sv-video" autoplay muted loop playsinline webkit-playsinline
-           aria-hidden="true">
-      <source src="${item.video_url}">
-    </video>` : item.image_url
+           preload="auto" aria-hidden="true"
+           src="${item.video_url}"></video>` : item.image_url
       ? `<img src="${item.image_url}" alt="${escHtml(nombre)}" loading="lazy">`
       : `<div class="card-placeholder"><span class="card-placeholder-name">${escHtml(nombre)}</span></div>`;
 
@@ -30,38 +29,38 @@ function renderSmallVideo(block, idx = 0) {
   `;
 }
 
-// Forzar autoplay en iOS — llamar play() cuando la card se hace visible
+// Forzar autoplay en iOS — propiedades por JS y play() en visibilidad
 function iniciarSmallVideos() {
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      const video = e.target.querySelector('.sv-video');
+      if (!video) return;
+      if (e.isIntersecting) {
+        video.play().catch(() => {});
+      } else {
+        video.pause();
+      }
+    });
+  }, { threshold: 0.1 });
+
   document.querySelectorAll('.block-small-video').forEach(card => {
     const video = card.querySelector('.sv-video');
     if (!video) return;
 
-    // Propiedades críticas para iOS
-    video.muted  = true;
-    video.loop   = true;
+    // Propiedades críticas para iOS — más confiable que solo atributos
+    video.muted        = true;
+    video.defaultMuted = true;
+    video.loop         = true;
+    video.playsInline  = true;
     video.setAttribute('playsinline', '');
     video.setAttribute('webkit-playsinline', '');
+    video.setAttribute('muted', '');
 
-    // Llamar play() cuando la card recibe la clase 'revealed' (scroll-reveal)
-    const mo = new MutationObserver(() => {
-      if (card.classList.contains('revealed')) {
-        mo.disconnect();
-        // Pequeño delay para que el browser procese la visibilidad
-        setTimeout(() => video.play().catch(() => {}), 100);
-      }
-    });
-    mo.observe(card, { attributes: true, attributeFilter: ['class'] });
+    // Intentar play() inmediatamente (HTML autoplay) y en eventos clave
+    video.play().catch(() => {});
+    video.addEventListener('loadedmetadata', () => video.play().catch(() => {}), { once: true });
+    video.addEventListener('canplay',        () => video.play().catch(() => {}), { once: true });
 
-    // Pausa/reanuda según visibilidad en scroll
-    const io = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          video.play().catch(() => {});
-        } else {
-          video.pause();
-        }
-      });
-    }, { threshold: 0.2 });
     io.observe(card);
   });
 }
