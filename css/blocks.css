@@ -319,7 +319,18 @@
   height: 180px;
   width: 100%;
   object-fit: cover;
+  position: absolute;
+  inset: 0;
+  transition: opacity 0.35s ease;
 }
+
+/* Por defecto: video visible, imagen oculta */
+.block-small-video .sv-img   { opacity: 0; }
+.block-small-video .sv-video { opacity: 1; }
+
+/* Al tocar: imagen visible, video oculto */
+.block-small-video.sv-show-img .sv-img   { opacity: 1; }
+.block-small-video.sv-show-img .sv-video { opacity: 0; }
 
 /* ══════════════════════════════════════
    LARGE CARD  (ancho completo, ~240px)
