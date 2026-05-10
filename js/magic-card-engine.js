@@ -151,10 +151,6 @@ function crearInstancia(canvas) {
       ctx.globalAlpha = 1;
       ctx.drawImage(bgImage, sx, sy, sw, sh, 0, 0, W, H);
 
-      // Overlay oscuro para que los efectos sean visibles
-      ctx.globalAlpha = 0.25;
-      ctx.fillStyle = '#0C0804';
-      ctx.fillRect(0, 0, W, H);
       ctx.globalAlpha = 1;
     } else {
       // Sin imagen: fondo sólido
