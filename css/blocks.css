@@ -1659,9 +1659,9 @@
 
 @keyframes goldShift {
   0%   { filter: hue-rotate(0deg)   drop-shadow(0 0 4px #c9a84c88); }
-  25%  { filter: hue-rotate(25deg)  drop-shadow(0 0 7px #e8a04a99); }
-  50%  { filter: hue-rotate(50deg)  drop-shadow(0 0 5px #e8854a88); }
-  75%  { filter: hue-rotate(25deg)  drop-shadow(0 0 7px #e8a04a99); }
+  25%  { filter: hue-rotate(-10deg) drop-shadow(0 0 7px #e8a04a99); }
+  50%  { filter: hue-rotate(15deg)  drop-shadow(0 0 5px #e8854a88); }
+  75%  { filter: hue-rotate(-10deg) drop-shadow(0 0 7px #e8a04a99); }
   100% { filter: hue-rotate(0deg)   drop-shadow(0 0 4px #c9a84c88); }
 }
 
